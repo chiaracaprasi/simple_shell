@@ -6,9 +6,9 @@
 - local_* (all local testing files)
 
 ### REPO STANDARDS
-**Commit Messages:**
-**usage:**   <type>: subject line in lower case.
-**example:** docs: update readme file
+**Commit Messages:**   
+**usage:**   <type>: subject line in lower case.   
+**example:** docs: update readme file   
 
 **Allowed** <type> values: #
 - **feat** for a new feature for the user, not a new feature for build script. Such commit will trigger a release bumping a MINOR version.
@@ -20,10 +20,8 @@
 - **test** for adding missing tests, refactoring tests; no production code change.
 - **build** for updating build configuration, development tools or other changes irrelevant to the user.
    
-**Branch Naming:**
-
-**Usage:**   shell_<tasknumber>
-
-**Example:** shell_0.1
+**Branch Naming:**   
+**Usage:**   shell_<tasknumber>   
+**Example:** shell_0.1   
 
 Day_1 Folder - contains all tasks done in day 1, and is kept to be used as a reference for all future work.
