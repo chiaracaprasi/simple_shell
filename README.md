@@ -24,4 +24,5 @@
 **Usage:**   shell_<tasknumber>   
 **Example:** shell_0.1   
 
+### files/folder information
 Day_1 Folder - contains all tasks done in day 1, and is kept to be used as a reference for all future work.
