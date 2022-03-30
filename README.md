@@ -7,9 +7,7 @@
 
 ### REPO STANDARDS
 **Commit Messages:**
-
 **usage:**   <type>: subject line in lower case.
-
 **example:** docs: update readme file
 
 **Allowed** <type> values: #
