@@ -25,4 +25,5 @@
 **Example:** shell_0.1   
 
 ### files/folder information
-Day_1 Folder - contains all tasks done in day 1, and is kept to be used as a reference for all future work.
+- Day_1 Folder - contains all tasks done in day 1, and is kept to be used as a reference for all future work.
+- playground - for testing and experimenting during the planning phase of the project. Kept long term as a refresher if needed.
