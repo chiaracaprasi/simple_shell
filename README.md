@@ -10,9 +10,13 @@ This project is part of Holberton School Australia curriculum.
 ## 🦪 How to use it 
 
 > Step 1 - Clone the repo locally using this command
-
+```
+gh repo clone chiaracaprasi/simple_shell
+```
 > Step 2 - Navigate to the folder 
-
+```
+cd simple_shell
+```
 > Step 3 - Compiling using this command 
 ```
 gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh 
@@ -22,7 +26,11 @@ gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
 ```
 ./hsh
 ```
-> Step 5 - Exit the shell 
+> Step 5 - Type a command e.g.
+```
+ls -l 
+```
+> Step 6 - Exit the shell 
 ```
 exit 
 ```
