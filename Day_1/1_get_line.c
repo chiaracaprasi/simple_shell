@@ -5,14 +5,21 @@
 
 #define clear() printf("\033[H\033[J")
 
-char *tokenise(char *str)
+char **tokenise(char *str)
 {
-    // Returns first token
+
+	/* store each token in an array, and return a pointer to the array to the get_line function
+	   so that was can send each item seperatly to the execute function*/
+
+	// Returns first token
 	char* token = strtok(str, " ");
 
-// Keep printing tokens while one of the
-    // delimiters present in str[].
-	while (token != NULL) {
+
+	// Keep printing tokens while one of the
+
+	// delimiters present in str[].
+	while (token != NULL)
+	{
 		printf("%s\n", token);
 		token = strtok(NULL, " ");
 	}
@@ -31,6 +38,7 @@ int get_line()
     int flag = 0;
 
     printf("****WELCOME TO OUR C-SHELL****\n");
+    /*create liked list with the hist_func stuff*/
     do {
 	    printf("$ ");
 	    error = getline(&buffer,&bufsize,stdin);
@@ -41,11 +49,18 @@ int get_line()
 	    }
 	    if ((strcmp(buffer, "exit\n")) == 0)
 	    {
+		    /*advanced task, need to handle exit codes eg exit 98*/
 		    printf("goodbye!\n");
 		    flag = 1;
 	    }
 	    else
-		    tokenise(buffer);
+		    /*add buffer to new element in linked list with hist_func stuff*/
+
+		    /*need a pointer to an array to store the return value*/
+		    tokenise(buffer); /*split the arguments up divided by space " "*/
+
+	    /*New function that will take the information and see if it is an executable*/
+	    /*this function will handle the forking of children*/
 
     } while (flag == 0);
 
