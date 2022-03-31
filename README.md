@@ -1,5 +1,46 @@
-# simple_shell
-## By Chiara, Declan and Matthew
+#  🌊🐚 C SHELL 
+#### By Chiara, Declan and Matthew
+
+## 🤿 What is the C Shell? 
+
+C Shell is a reproduction of the original UNIX shell in C. Same as the orginal shell, it's a program that takes commands by the user via the keyboard and gives them to the OS (operating system) to perform. 
+
+This project is part of Holberton School Australia curriculum. 
+
+## 🦪 How to use it 
+
+> Step 1 - Clone the repo locally using this command
+
+> Step 2 - Navigate to the folder 
+
+> Step 3 - Compiling using this command 
+```
+gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh 
+```
+
+> Step 4 - Run the C Shell
+```
+./hsh
+```
+> Step 5 - Exit the shell 
+```
+exit 
+```
+
+## 🦀 Example of usage
+
+## 🪲 Known bugs
+
+None for now!
+
+## ✍🏽 Authors
+
+- Chiara Caprasi
+- Declan Noble
+- Matthew Brinkmann 
+
+## 🧹🧺 Housekeeping
+
 
 .gitignore
 - *~ (all emacs buffer files)
