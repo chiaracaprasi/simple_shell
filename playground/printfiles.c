@@ -5,15 +5,14 @@ int main (void)
 	DIR *folder;
 	struct dirent *entry;
 
-	folder = opendir(".");
+	folder = opendir("."); /* . to represent present directory*/
 
-	if (folder == NULL)
+	if (folder == NULL)/* if directory is empty print error*/
 	{
-		printf("Error has occured, unable to read directory");
+		printf("Error occured: unable to read directory");
+			return (0);
 	}
-	while ((entry = readdir(folder)) != NULL)
-		printf("%s\n", entry->d_name);
-
-	closedir(folder);
-	return(0);
+	while ((entry = readdir(folder)) != NULL)/* entry point looking into specified folder*/
+		printf("%s\n", entry->d_name); /* d_name containing NULL terminated filename*/
+return (0);
 }
