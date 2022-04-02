@@ -45,6 +45,28 @@ char *_strcpy(char *dest, char *src)
 	return (dest);
 }
 
+/**
+ * _strdup - duplicate string
+ * @str: the string we will duplicate.
+ * Description: long description
+ *
+ * Return: pointer to new string or null
+ */
+char *_strdup(char *str)
+{
+	int len;
+	char *cpy;
+
+	if (str == NULL)
+		return (NULL);
+	len = _strlen(str);
+	cpy = malloc(len + 1);
+	if (cpy == NULL)
+		return (NULL);
+	_strcpy(cpy, str);
+	return (cpy);
+}
+
 token_t *add_token(token_t **head, int group, char *str_tok)
 {
 	char *strCpy;
@@ -52,7 +74,7 @@ token_t *add_token(token_t **head, int group, char *str_tok)
 	token_t *new = NULL;
 	token_t *hold = NULL;
 
-	strCpy = strdup(str_tok);
+	strCpy = _strdup(str_tok);
 	if (strCpy == NULL)
 		return (NULL);
 
@@ -234,7 +256,7 @@ int get_line()
 			printf("could not handle argument, memory issues\nAborting Shell\n");
 			flag = 1;
 		}
-		if ((strcmp(buffer, "exit\n")) == 0)
+		if ((_strcmp(buffer, "exit\n")) == 0)
 		{
 			/*advanced task, need to handle exit codes eg exit 98*/
 			print_logo_goodbye();
