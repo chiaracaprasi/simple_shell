@@ -4,8 +4,12 @@
 #include <string.h>
 
 #define clear() printf("\033[H\033[J")
-
-char **tokenise(char *str)
+/**
+ * tokenise - splits the initial string into it's seperate parts.
+ * @av: the strings/arguments we need to print
+ * Return: always 0.
+ */
+char **tokenise(char *str, )
 {
 
 	/* store each token in an array, and return a pointer to the array to the get_line function
