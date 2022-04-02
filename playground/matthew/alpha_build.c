@@ -82,14 +82,78 @@ token_t *add_token(token_t **head, int group, char *str_tok)
 }
 
 /**
+ * _strcmp - compare two string values
+ * @s1: first string to compare
+ * @s2: second string to compare
+ * Description: long description
+ *
+ * Return: the difference between the strings
+ */
+int _strcmp(char *s1, char *s2)
+{
+	int i = 0;
+	int retValue = 0;
+
+	while (s1[i] == s2[i])
+	{
+		if (s1[i] == '\0')
+			break;
+		if (s2[i] == '\0')
+			break;
+		i++;
+	}
+	retValue = s1[i] - s2[i];
+	return (retValue);
+}
+
+int is_builtin(char *str_tok)
+{
+	char *builtin[] =
+		{"billbo",
+		 "NULL"};
+	int i = 0;
+
+	while (builtin[i] != "NULL")
+	{
+		if (_strcmp(builtin[i], str_tok) == 0)
+			return (i);
+		i++;
+	}
+
+	return (-1);
+}
+
+int set_tok_cat(token_t *head, int group)
+{
+	while (head->next != NULL)
+	{
+		head = head->next;
+	}
+
+	if (head->token[0] == '-')
+		head->cat = 4;
+	if (_strcmp(head->token, "||") == 0)
+		head->cat = 5;
+	if (_strcmp(head->token, "&&") == 0)
+		head->cat = 6;
+	if (is_builtin(head->token) >= 0)
+		head->cat = 2;
+	if (_strcmp(head->token, ";") == 0)
+	{
+		head->cat = 7;
+		return (group + 1);
+	}
+	return (group);
+}
+/**
  * tokenise - splits the initial string into it's seperate parts.
  * @av: the strings/arguments we need to print
  * Return: always 0.
  */
 token_t *tokenise(token_t **head, char *str)
 {
-	char *buff_seperator = strtok(str, ";");
-	char *buff_commands = strtok(buff_seperator, " ");
+	char *rem_nl = strtok(str, "\n");
+	char *buff_commands = strtok(rem_nl, " ");
 	int group = 1, size = _strlen(str) + 1;
 
 	/*issue with not seperating out ALL ; tokens\
@@ -97,15 +161,11 @@ not sure how we will go about fixing it. maybe needle/haystack approach.
 if sep_store = buff_seperator, ALL the address are the same so it appears
 we will need to make a copy (_strcpy ^^ above) to be able to run it twice??*/
 
-	while (buff_seperator != NULL)
+	while (buff_commands != NULL)
 	{
-		while (buff_commands != NULL)
-		{
-			add_token(head, group, buff_commands);
-			buff_commands = strtok(NULL, " ");
-		}
-		buff_seperator = strtok(NULL, ";");
-		group = group + 1;
+		add_token(head, group, buff_commands);
+		group = set_tok_cat(*head, group);
+		buff_commands = strtok(NULL, " ");
 	}
 
 	return (*head);
