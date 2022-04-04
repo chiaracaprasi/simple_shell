@@ -56,13 +56,3 @@ int print_logo_goodbye(void)
 	printf("\n");
 	return (0);
 }
-
-/*
- int main(void)
- {
-
-	print_logo_welcome();
-	print_logo_goodbye();
-	return (0);
-}
-*/
