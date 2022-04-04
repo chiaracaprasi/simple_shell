@@ -39,5 +39,10 @@ typedef struct s_tokens
 
 int print_logo_welcome(void);
 int print_logo_goodbye(void);
+char *_strdup(char *str);
+int _strlen(char *s);
+char *_strcpy(char *dest, char *src);
+void *_calloc(unsigned int nmemb, unsigned int size);
+int exc_cmd(token_t **head, int group);
 
 #endif

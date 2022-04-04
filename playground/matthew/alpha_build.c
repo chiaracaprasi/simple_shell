@@ -132,7 +132,7 @@ int _strcmp(char *s1, char *s2)
 int is_builtin(char *str_tok)
 {
 	char *builtin[] =
-		{"billbo",
+		{"ls",
 		 "NULL"};
 	int i = 0;
 
@@ -150,14 +150,14 @@ int is_alias(char *str_tok)
 	/*this is a placeholder function at the moment, will need to
 	  make dynamic for final build and implementations*/
 
-	char *builtin[] =
-		{"alias1",
+	char *alias[] =
+		{"e",
 		 "NULL"};
 	int i = 0;
 
-	while (builtin[i] != "NULL")
+	while (alias[i] != "NULL")
 	{
-		if (_strcmp(builtin[i], str_tok) == 0)
+		if (_strcmp(alias[i], str_tok) == 0)
 			return (i);
 		i++;
 	}
@@ -193,7 +193,7 @@ int set_tok_cat(token_t *head, int group)
  * @av: the strings/arguments we need to print
  * Return: always 0.
  */
-token_t *tokenise(token_t **head, char *str)
+int tokenise(token_t **head, char *str)
 {
 	char *rem_nl = strtok(str, "\n");
 	char *buff_commands = strtok(rem_nl, " ");
@@ -211,7 +211,7 @@ we will need to make a copy (_strcpy ^^ above) to be able to run it twice??*/
 		buff_commands = strtok(NULL, " ");
 	}
 
-	return (*head);
+	return (group);
 }
 
 void free_tok(token_t **head)
@@ -266,7 +266,7 @@ int get_line()
 	token_t *head = NULL;
 	char *buffer = NULL;
 	size_t bufsize = 32, error;
-	int flag = 0;
+	int flag = 0, group, test = 1;
 
 	/*create liked list with the hist_func stuff*/
 	do {
@@ -286,8 +286,18 @@ int get_line()
 		else
 			/*add buffer to new element in linked list with hist_func stuff*/
 			/*need a pointer to an array to store the return value*/
-			tokenise(&head, buffer); /*split the arguments up divided by space " "*/
-		print_list(head);
+			group = tokenise(&head, buffer); /*split the arguments up divided by space " "*/
+/*in a while loop to handle ; command*/
+		printf("group = %d\n", group);
+		while (test <= group)
+		{
+			printf("test = %d\n", test);
+			if (head->cat == 1)
+				exc_cmd(&head, test);
+			while (head->group == test)
+				head = head->next;
+			test++;
+		}
 		free_tok(&head);
 		/*New function that will take the information and see if it is an executable*/
 		/*this function will handle the forking of children*/
