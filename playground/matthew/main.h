@@ -44,5 +44,6 @@ int _strlen(char *s);
 char *_strcpy(char *dest, char *src);
 void *_calloc(unsigned int nmemb, unsigned int size);
 int exc_cmd(token_t **head, int group);
+int _strcmp(char *s1, char *s2);
 
 #endif

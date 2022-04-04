@@ -288,15 +288,21 @@ int get_line()
 			/*need a pointer to an array to store the return value*/
 			group = tokenise(&head, buffer); /*split the arguments up divided by space " "*/
 /*in a while loop to handle ; command*/
-		printf("group = %d\n", group);
+
 		while (test <= group)
 		{
-			printf("test = %d\n", test);
 			if (head->cat == 1)
+			{
 				exc_cmd(&head, test);
-			while (head->group == test)
-				head = head->next;
-			test++;
+				test++;
+			}
+			while (head != NULL && head->group != test)
+			{
+				if (head->next != NULL)
+					head = head->next;
+				else
+					break;
+			}
 		}
 		free_tok(&head);
 		/*New function that will take the information and see if it is an executable*/
