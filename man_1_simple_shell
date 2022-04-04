@@ -1,0 +1,35 @@
+.TH C_SHELL(3)
+.SH NAME
+.B C_SHELL
+.SH SYNOPSIS
+.B hsh [options] [filename]
+.SH DESCRIPTION
+.B C_SHELL
+is a reproduction of the standard bash shell etc...
+.SH INVOCATION
+.B hsh
+here goes some text
+.SH SHELL GRAMMAR
+.TP
+.BR Simple commands
+A simple command...
+.TP
+.BR Pipelines
+A pipeline is a sequence of one or more commands separated by the character |. The format for a pipelin eis:
+
+.SH SHELL BUILTIN COMMANDS
+Placeholder 
+.SH RETURN VALUE
+Do we need this section?
+.B C_SHELL
+return the number...
+.SH AUTHORS
+Chiara Caprasi - chiaracaprasi@pm.com
+.br
+Declan Noble
+.br
+Matthew Brinkmann
+
+.SH BUGS
+.B C_SHELL
+No known bugs for now
