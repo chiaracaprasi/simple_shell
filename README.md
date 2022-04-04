@@ -94,10 +94,11 @@ Full Path name E.G:
 
 ## 🪲 Known bugs
 ### seperator bug
-the ';' seperator will only work if there is a space either side of it
-- (ls ; rm *.c) will work
-- (ls;rm *.c) will not work.
-
+the ';' seperator will only work if there is a space either side of it   
+- (ls ; rm *.c) will work      
+- (ls;rm *.c) will not work.     
+### Blank input fault    
+segmentation fault if press enter with no input    
 
 ## ✍🏽 Authors
 
