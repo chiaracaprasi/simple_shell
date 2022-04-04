@@ -93,7 +93,9 @@ exit
 
 ## 🪲 Known bugs
 
-None for now!
+the ';' seperator will only work if there is a space
+- (ls ; rm *.c) will work
+- (ls;rm *.c) will not work.
 
 
 ## ✍🏽 Authors
