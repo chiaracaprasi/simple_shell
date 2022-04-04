@@ -88,12 +88,13 @@ ls -l
 exit 
 ```
 
-## 🦀 Example of usage
-
+## 🦀 Example of usage  
+Full Path name E.G:   
+-> /bin/ls    
 
 ## 🪲 Known bugs
-
-the ';' seperator will only work if there is a space
+### seperator bug
+the ';' seperator will only work if there is a space either side of it
 - (ls ; rm *.c) will work
 - (ls;rm *.c) will not work.
 
