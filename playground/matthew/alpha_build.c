@@ -145,6 +145,25 @@ int is_builtin(char *str_tok)
 
 	return (-1);
 }
+int is_alias(char *str_tok)
+{
+	/*this is a placeholder function at the moment, will need to
+	  make dynamic for final build and implementations*/
+
+	char *builtin[] =
+		{"alias1",
+		 "NULL"};
+	int i = 0;
+
+	while (builtin[i] != "NULL")
+	{
+		if (_strcmp(builtin[i], str_tok) == 0)
+			return (i);
+		i++;
+	}
+
+	return (-1);
+}
 
 int set_tok_cat(token_t *head, int group)
 {
@@ -152,15 +171,16 @@ int set_tok_cat(token_t *head, int group)
 	{
 		head = head->next;
 	}
-
+	if (is_builtin(head->token) >= 0)
+		head->cat = 2;
+	if (is_alias(head->token) >= 0)
+		head->cat = 3;
 	if (head->token[0] == '-')
 		head->cat = 4;
 	if (_strcmp(head->token, "||") == 0)
 		head->cat = 5;
 	if (_strcmp(head->token, "&&") == 0)
 		head->cat = 6;
-	if (is_builtin(head->token) >= 0)
-		head->cat = 2;
 	if (_strcmp(head->token, ";") == 0)
 	{
 		head->cat = 7;
