@@ -41,7 +41,7 @@ int path_finder(char *cmd)
 		printf("File found\n");
 }
 
-int main(void)
+/* int main(void)
 {
 	char *test = "ls";
 	char *test1 = "frank";
@@ -54,3 +54,4 @@ int main(void)
 
 	return (0);
 }
+*/
