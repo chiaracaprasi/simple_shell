@@ -30,6 +30,7 @@ int is_builtin(char *str_tok);
 int is_alias(char *str_tok);
 int group_sort(int grp_test, token_t **head);
 int get_line(char **env);
+int is_end_of_shell(char *buffer, int error);
 /* tokeniser functions */
 token_t *add_token(token_t **head, int group, char *str_tok);
 void free_tok(token_t **head);
@@ -37,10 +38,15 @@ int set_tok_cat(token_t *head, int group);
 int tokenise(token_t **head, char *str);
 /* system exc functions */
 void exc_cmd_test(char * const cmd_array[]);
-int exc_cmd(token_t **head, int group);
+void exc_cmd(token_t **head, int group);
 /* library functions */
 int _strlen(char *s);
 char *_strcpy(char *dest, char *src);
 char *_strdup(char *str);
 int _strcmp(char *s1, char *s2);
+int _atoi(char *s);
+/* builtin funcs */
+void exc_built(token_t **head, int group);
+void exit_built(token_t **head, int status);
+
 #endif
