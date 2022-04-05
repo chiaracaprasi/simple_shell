@@ -15,7 +15,7 @@
 int is_builtin(char *str_tok)
 {
 	char *builtin[] = {
-		"ls",
+		"exit",
 		 "NULL"};
 	int i = 0;
 

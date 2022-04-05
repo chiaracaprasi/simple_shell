@@ -30,6 +30,11 @@ int group_sort(int grp_test, token_t **head)
 		return (grp_test + 1);
 	}
 
+	if ((*head)->cat == 2)
+	{
+		exc_built(head, grp_test);
+		return (grp_test + 1);
+	}
 	return (grp_test);
 }
 
@@ -48,22 +53,26 @@ int get_line(char **env)
 	/*create liked list with the hist_func stuff*/
 	do {
 		grp_test = 1;
-		write(1, "-> ", 3);
+		if (isatty(STDIN_FILENO))
+			write(1, "-> ", 3);
 		error = getline(&buffer, &bufsize, stdin);
-		if (error == -1)
+		if (error <= 0 || buffer[0] == '\n')
 		{
-			printf("could not handle argument, memory issues\nAborting Shell\n");
-			flag = 1;
+			flag = is_end_of_shell(buffer, error);
+			continue;
 		}
-		/**
-		 * if ((_strcmp(buffer, "\n")) == 0)
-		 * go back or something or rather
-		 */
+		fflush(stdin);
+/*
+
 		if ((_strcmp(buffer, "exit\n")) == 0)
 		{
 			print_logo_goodbye();
 			flag = 1;
+			free_tok(&head);
+			free(buffer);
+			exit(99);
 		}
+		 */
 		if (flag != 1)
 		{
 			group = tokenise(&head, buffer);
@@ -73,11 +82,30 @@ int get_line(char **env)
 			}
 			free_tok(&head);
 		}
+
 	} while (flag == 0);
 	free(buffer);
 	return (0);
 }
 
+/**
+ * is_end_of_shell - checks if the input is end of shell or new line
+ * @buffer: inputter string
+ * @error: number of bytes in string
+ * Return: 0 if \n or 1 if no bytes.
+ */
+int is_end_of_shell(char *buffer, int error)
+{
+	if (buffer[0] == '\n')
+		return (0);
+	if (error <= 0)
+	{
+		fflush(stdin);
+		return (1);
+	}
+
+	return (0);
+}
 /**
  * main - voids ac.
  * @ac: number of arguments passed (VOID)
