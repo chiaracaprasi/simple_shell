@@ -58,21 +58,11 @@ int get_line(char **env)
 		error = getline(&buffer, &bufsize, stdin);
 		if (error <= 0 || buffer[0] == '\n')
 		{
-			flag = is_end_of_shell(buffer, error);
+			if (!is_end_of_shell(buffer, error))
+				return (0);
 			continue;
 		}
 		fflush(stdin);
-/*
-
-		if ((_strcmp(buffer, "exit\n")) == 0)
-		{
-			print_logo_goodbye();
-			flag = 1;
-			free_tok(&head);
-			free(buffer);
-			exit(99);
-		}
-		 */
 		if (flag != 1)
 		{
 			group = tokenise(&head, buffer);
@@ -82,9 +72,7 @@ int get_line(char **env)
 			}
 			free_tok(&head);
 		}
-
 	} while (flag == 0);
-	free(buffer);
 	return (0);
 }
 
@@ -96,15 +84,19 @@ int get_line(char **env)
  */
 int is_end_of_shell(char *buffer, int error)
 {
-	if (buffer[0] == '\n')
-		return (0);
-	if (error <= 0)
+	if (buffer)
 	{
-		fflush(stdin);
+		buffer = NULL;
 		return (1);
 	}
-
-	return (0);
+	if (error <= 0)
+	{
+		if (isatty(STDIN_FILENO))
+			write(STDOUT_FILENO, "\n", 1);
+		fflush(stdin);
+		return (0);
+	}
+	return (1);
 }
 /**
  * main - voids ac.
