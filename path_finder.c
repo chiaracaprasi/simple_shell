@@ -17,32 +17,40 @@ int path_finder(char *cmd)
 {
 	char *dir = "/bin/";
 	int file_found;
-	char *path = strcat(dir, cmd);
+	int len1 = _strlen(dir), len2 = strlen(cmd);
+	char *path = malloc((len1 + len2 + 1) * sizeof(char));
 
-	printf("TEST Path is %s", path);
+	if (path == NULL)
+	{
+		return (-1);
+	}
+	strcpy(path, dir);
+	path = strcat(path, cmd);
+
+	printf("TEST Path is %s\n", path);
 
 	file_found = access(path, X_OK);
-	printf("TEST filefound return is %d", file_found);
+	printf("TEST filefound return is %d\n", file_found);
 
 	if (file_found == -1)
 	{
-		printf("No such file or directory");
+		printf("No such file or directory\n");
 		return (-1);
 	}
 	else
-		printf("File found");
+		printf("File found\n");
 }
 
 int main(void)
 {
 	char *test = "ls";
-/*	char *test1 = "frank"; */
+	char *test1 = "frank";
 	int result;
 
 	result = path_finder(test);
-	printf("%d\n", result);
-	result = path_finder(test);
-	printf("%d\n", result);
+	printf("Result for test in main is %d\n", result);
+	result = path_finder(test1);
+	printf("Result for test1 in main is %d\n", result);
 
 	return (0);
 }
