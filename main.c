@@ -111,5 +111,7 @@ int main(int ac, char **av, char **env)
 	(void) av;
 	clear();
 	print_logo_welcome();
+
+	signal(SIGINT, signal_handler);
 	return (get_line(env));
 }

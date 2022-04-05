@@ -31,6 +31,7 @@ int is_alias(char *str_tok);
 int group_sort(int grp_test, token_t **head);
 int get_line(char **env);
 int is_end_of_shell(char *buffer, int error);
+void signal_handler(int signal);
 /* tokeniser functions */
 token_t *add_token(token_t **head, int group, char *str_tok);
 void free_tok(token_t **head);
