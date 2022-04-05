@@ -12,7 +12,7 @@
  *
  * Return: 0 upon success
  */
-void exc_built(token_t **head, int group)
+void exc_built(token_t **head, int group, char **env)
 {
 	char *argv[100];
 	token_t *hold = *head;
@@ -50,5 +50,9 @@ void exc_built(token_t **head, int group)
 			funcNum = _atoi(argv[1]);
 
 		exit_built(head, funcNum);
+	}
+	if (builtNum == 1)
+	{
+		cd_built(argv[1], env);
 	}
 }

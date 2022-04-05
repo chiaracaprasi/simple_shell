@@ -4,6 +4,28 @@
 #include <string.h>
 #include "main.h"
 
+/**
+ * path_start - checks in the string starts with /bin/
+ * @path: the string to check.
+ * Description: locates if command entered exists in the bin directory
+ *
+ * Return: 0 for success, -1 for not found
+ */
+int path_start(char *path)
+{
+	char *check = "/bin/";
+	int i = 0;
+
+	while (check[i] == path[i])
+	{
+		i++;
+	}
+
+	if (i == 5)
+		return (1);
+
+	return (0);
+}
 
 /**
  * path_finder - handles the PATH
@@ -12,46 +34,40 @@
  *
  * Return: 0 for success, -1 for not found
  */
-
-int path_finder(char *cmd)
+char *path_finder(char *cmd)
 {
 	char *dir = "/bin/";
 	int file_found;
 	int len1 = _strlen(dir), len2 = strlen(cmd);
-	char *path = malloc((len1 + len2 + 1) * sizeof(char));
+	char *path = NULL;
 
-	if (path == NULL)
+	if ((path_start(cmd)) == 0)
 	{
-		return (-1);
+		path = malloc((len1 + len2 + 1) * sizeof(char));
+		if (path == NULL)
+		{
+			return NULL;
+		}
+		strcpy(path, dir);
+		path = strcat(path, cmd);
 	}
-	strcpy(path, dir);
-	path = strcat(path, cmd);
-
-	printf("TEST Path is %s\n", path);
+	else
+	{
+		path = malloc((len2 + 1) * sizeof(char));
+		if (path == NULL)
+		{
+			return NULL;
+		}
+		strcpy(path, cmd);
+	}
 
 	file_found = access(path, X_OK);
-	printf("TEST filefound return is %d\n", file_found);
 
 	if (file_found == -1)
 	{
-		printf("No such file or directory\n");
-		return (-1);
+		free(path);
+		return (cmd);
 	}
-	else
-		printf("File found\n");
+
+	return (path);
 }
-
-/* int main(void)
-{
-	char *test = "ls";
-	char *test1 = "frank";
-	int result;
-
-	result = path_finder(test);
-	printf("Result for test in main is %d\n", result);
-	result = path_finder(test1);
-	printf("Result for test1 in main is %d\n", result);
-
-	return (0);
-}
-*/

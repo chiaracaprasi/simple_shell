@@ -30,7 +30,10 @@ token_t *add_token(token_t **head, int group, char *str_tok)
 		return (NULL);
 
 	new->group = group;
-	new->cat = 1;
+	new->cat = 0;
+	strCpy = path_finder(strCpy);
+	if ((path_start(strCpy)) == 1)
+		new->cat = 1;
 	new->token = strCpy;
 	new->next = NULL;
 	if (*head == NULL)

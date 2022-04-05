@@ -11,7 +11,7 @@
  * @head: list of tokens
  * Return: always 0.
  */
-int group_sort(int grp_test, token_t **head)
+int group_sort(int grp_test, token_t **head, char **env)
 {
 	if ((*head) != NULL)
 	{
@@ -24,6 +24,11 @@ int group_sort(int grp_test, token_t **head)
 		}
 	}
 
+	if ((*head)->cat == 0)
+	{
+		print_error_unknown(head, grp_test);
+		return (grp_test + 1);
+	}
 	if ((*head)->cat == 1)
 	{
 		exc_cmd(head, grp_test);
@@ -32,7 +37,7 @@ int group_sort(int grp_test, token_t **head)
 
 	if ((*head)->cat == 2)
 	{
-		exc_built(head, grp_test);
+		exc_built(head, grp_test, env);
 		return (grp_test + 1);
 	}
 	return (grp_test);
@@ -54,7 +59,7 @@ int get_line(char **env)
 	do {
 		grp_test = 1;
 		if (isatty(STDIN_FILENO))
-			write(1, "-> ", 3);
+			print_prompt();
 		error = getline(&buffer, &bufsize, stdin);
 		if (error <= 0 || buffer[0] == '\n')
 		{
@@ -68,7 +73,7 @@ int get_line(char **env)
 			group = tokenise(&head, buffer);
 			while (grp_test <= group)
 			{
-				grp_test = group_sort(grp_test, &head);
+				grp_test = group_sort(grp_test, &head, env);
 			}
 			free_tok(&head);
 		}
@@ -97,6 +102,14 @@ int is_end_of_shell(char *buffer, int error)
 		return (0);
 	}
 	return (1);
+}
+/**
+ * print_prompt - prints prompt
+ * Return: nothing.
+ */
+void print_prompt()
+{
+	write(STDOUT_FILENO, "-> ", 3);
 }
 /**
  * main - voids ac.

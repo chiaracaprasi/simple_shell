@@ -16,6 +16,7 @@ int is_builtin(char *str_tok)
 {
 	char *builtin[] = {
 		"exit",
+		"cd",
 		 "NULL"};
 	int i = 0;
 
@@ -44,7 +45,6 @@ int is_alias(char *str_tok)
 	 */
 
 	char *alias[] =	{
-		"e",
 		 "NULL"};
 	int i = 0;
 

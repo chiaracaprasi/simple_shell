@@ -2,27 +2,46 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
-#include "main.h"
-
 
 /**
- * change_dir- handles cd builtin
+ * cd_built- handles cd builtin, limited, does not UPDATE PWD.
  * :
  * Description: locates if command entered exists in the bin directory
  *
  * Return: 0 for success, -1 for not found
  */
-
-
-/* int main(void)
+void cd_built(char *dir, char **env)
 {
-	char s[100];
+	char pwd[100];
+	char *curr_dir;
+	int error;
 
-	printf("%s\n", getcwd(s, 100));
-	chdir("..");
-     	printf("%s\n", getcwd(s, 100));
-	chdir("/home");
-	printf("%s\n", getcwd(s, 100));
-	return (0);
+	if (dir == NULL)
+	{
+		curr_dir = malloc(100);
+		if (curr_dir == NULL)
+			return;
+		if (!getenv("HOME"))
+			error = chdir("/home/");
+		else
+			error = chdir(getenv("HOME"));
+		if (error == -1)
+		{
+			return;
+		}
+		getcwd(pwd, 100);
+		puts(pwd);
+		return;
+	}
+
+	error = chdir(dir);
+	if (error == -1)
+	{
+		puts(dir);
+		puts(": directory not found\n");
+		return;
+	}
+
+	getcwd(pwd, 100);
+	puts(pwd);
 }
-*/

@@ -15,7 +15,7 @@ void exc_cmd_test(char * const cmd_array[])
 {
 	if (execve(cmd_array[0], cmd_array, NULL) == -1)
 	{
-		printf("ERROROROROR!!!!!\n");
+		_puts("error executing system command\n");
 	}
 }
 

@@ -5,6 +5,14 @@
 #include <signal.h>
 #include "main.h"
 
+/**
+ * print_newline - prints a newline
+ * Return: nothing.
+ */
+void print_newline()
+{
+	write(STDOUT_FILENO, "\n", 1);
+}
 
 /**
  * signal_handler - handles signals processing
@@ -17,6 +25,7 @@ void signal_handler(int signal)
 {
 	if (signal == SIGINT)
 	{
-		printf("\n->");
+		print_newline();
+		print_prompt();
 	}
 }
