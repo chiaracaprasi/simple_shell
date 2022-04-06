@@ -36,13 +36,13 @@ int print_logo_goodbye(void);
 void print_error_unknown(token_t **head, int group);
 void print_prompt();
 /* tokeniser functions */
-token_t *add_token(token_t **head, int group, char *str_tok);
+token_t *add_token(token_t **head, int group, char *str_tok, char **env);
 void free_tok(token_t **head);
 int set_tok_cat(token_t *head, int group);
-int tokenise(token_t **head, char *str);
+int tokenise(token_t **head, char *str, char **env);
 /* system exc functions */
 int path_start(char *path);
-char *path_finder(char *cmd);
+char *path_finder(char *cmd, char **env);
 void exc_cmd_test(char * const cmd_array[]);
 void exc_cmd(token_t **head, int group);
 /* library functions */
@@ -53,10 +53,13 @@ int _strcmp(char *s1, char *s2);
 int _atoi(char *s);
 void _puts(char *str);
 int _putchar(char c);
+char *_strcat(char *dest, char *src);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 /* builtin funcs */
 void exc_built(token_t **head, int group, char **env);
 void exit_built(token_t **head, int status);
 void cd_built(char *dir, char **env);
 void env_built (char **env);
+char *_getenv (char *name, char **env);
 
 #endif

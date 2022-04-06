@@ -27,6 +27,49 @@ int path_start(char *path)
 	return (0);
 }
 
+char *find_real_path(char *dir, char *cmd)
+{
+	char *path[20];
+	char *path_list = strtok(dir, ":");
+	char *path_list_cpy = NULL;
+	int len2 = _strlen(cmd), newsize;
+	int file_found, i = 0, k = 0;
+
+	while (path_list != NULL)
+	{
+		newsize = (_strlen(path_list) + len2 + 2) * sizeof(char);
+		path_list_cpy = malloc(newsize);
+		path_list_cpy = _strcat(path_list_cpy, path_list);
+		path_list_cpy = _strcat(path_list_cpy, "/");
+		path_list_cpy = _strcat(path_list_cpy, cmd);
+		path[i] = path_list_cpy;
+		i++;
+		path_list = strtok(NULL, ":");
+	}
+	path[i] == NULL;
+	i = 0;
+	while (path[i] != NULL)
+	{
+		printf("path[i] = %s\n", path[i]);
+		i++;
+	}
+	while (path[i] != NULL)
+	{
+		file_found = access(path[i], X_OK);
+		if (file_found == -1)
+		{
+			printf("file not found\n");
+			i++;
+		}
+		if (file_found >= 0)
+		{
+			printf("path returned: %s\n", path[i]);
+			return (path[i]);
+		}
+	}
+
+	return (NULL);
+}
 /**
  * path_finder - handles the PATH
  * @cmd: command entered
@@ -34,33 +77,36 @@ int path_start(char *path)
  *
  * Return: 0 for success, -1 for not found
  */
-char *path_finder(char *cmd)
+char *path_finder(char *cmd, char **env)
 {
-	char *dir = "/bin/";
+	char *dir = NULL;
 	int file_found;
-	int len1 = _strlen(dir), len2 = strlen(cmd);
+	int len1, len2 = strlen(cmd);
 	char *path = NULL;
 
 	if ((_strcmp(cmd, "env")) == 0)
 		return (cmd);
-	if ((path_start(cmd)) == 0)
-	{
-		path = malloc((len1 + len2 + 1) * sizeof(char));
-		if (path == NULL)
-		{
-			return NULL;
-		}
-		_strcpy(path, dir);
-		path = strcat(path, cmd);
-	}
-	else
+	dir =  _getenv("PATH", env);
+	if (dir == NULL)
+		dir = _strdup("/bin/");
+	len1 = strlen(dir);
+
+	if ((path_start(cmd)) == 1)
 	{
 		path = malloc((len2 + 1) * sizeof(char));
 		if (path == NULL)
 		{
+			printf("return NULL\n");
 			return NULL;
 		}
-		strcpy(path, cmd);
+		path = strcat(path, cmd);
+		printf("line 96: path = %s\n", path);
+	}
+	else
+	{
+		path = find_real_path(dir, cmd);
+		if (path == NULL)
+			return (cmd);
 	}
 
 	file_found = access(path, X_OK);
@@ -71,5 +117,6 @@ char *path_finder(char *cmd)
 		return (cmd);
 	}
 
+	printf("final return of path: %s\n", path);
 	return (path);
 }

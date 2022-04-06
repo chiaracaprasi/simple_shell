@@ -15,7 +15,7 @@
  *
  * Return: pointer to new list element.
  */
-token_t *add_token(token_t **head, int group, char *str_tok)
+token_t *add_token(token_t **head, int group, char *str_tok, char **env)
 {
 	char *strCpy;
 	token_t *new = NULL;
@@ -31,7 +31,7 @@ token_t *add_token(token_t **head, int group, char *str_tok)
 
 	new->group = group;
 	new->cat = 0;
-	strCpy = path_finder(strCpy);
+	strCpy = path_finder(strCpy, env);
 	if ((path_start(strCpy)) == 1)
 		new->cat = 1;
 	new->token = strCpy;
@@ -110,7 +110,7 @@ int set_tok_cat(token_t *head, int group)
  * @str: full str passed into command line
  * Return: always 0.
  */
-int tokenise(token_t **head, char *str)
+int tokenise(token_t **head, char *str, char **env)
 {
 	char *rem_nl = strtok(str, "\n");
 	char *buff_commands = strtok(rem_nl, " ");
@@ -118,7 +118,7 @@ int tokenise(token_t **head, char *str)
 
 	while (buff_commands != NULL)
 	{
-		add_token(head, group, buff_commands);
+		add_token(head, group, buff_commands, env);
 		group = set_tok_cat(*head, group);
 		buff_commands = strtok(NULL, " ");
 	}

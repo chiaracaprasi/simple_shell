@@ -1,8 +1,6 @@
-#include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include <string.h>
-
+#include "main.h"
 /**
  * cd_built- handles cd builtin, limited, does not UPDATE PWD.
  * :
@@ -21,27 +19,29 @@ void cd_built(char *dir, char **env)
 		curr_dir = malloc(100);
 		if (curr_dir == NULL)
 			return;
-		if (!getenv("HOME"))
+		if (!_getenv("HOME", env))
 			error = chdir("/home/");
 		else
-			error = chdir(getenv("HOME"));
+			error = chdir(_getenv("HOME", env));
 		if (error == -1)
 		{
 			return;
 		}
 		getcwd(pwd, 100);
-		puts(pwd);
+		_puts(pwd);
+		_puts("\n");
 		return;
 	}
 
 	error = chdir(dir);
 	if (error == -1)
 	{
-		puts(dir);
-		puts(": directory not found\n");
+		_puts(dir);
+		_puts(": directory not found\n");
 		return;
 	}
 
 	getcwd(pwd, 100);
-	puts(pwd);
+	_puts(pwd);
+	_puts("\n");
 }
