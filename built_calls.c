@@ -55,4 +55,8 @@ void exc_built(token_t **head, int group, char **env)
 	{
 		cd_built(argv[1], env);
 	}
+	if (builtNum == 2)
+	{
+		env_built(env);
+	}
 }

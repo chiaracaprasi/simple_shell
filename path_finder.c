@@ -41,6 +41,8 @@ char *path_finder(char *cmd)
 	int len1 = _strlen(dir), len2 = strlen(cmd);
 	char *path = NULL;
 
+	if ((_strcmp(cmd, "env")) == 0)
+		return (cmd);
 	if ((path_start(cmd)) == 0)
 	{
 		path = malloc((len1 + len2 + 1) * sizeof(char));
@@ -48,7 +50,7 @@ char *path_finder(char *cmd)
 		{
 			return NULL;
 		}
-		strcpy(path, dir);
+		_strcpy(path, dir);
 		path = strcat(path, cmd);
 	}
 	else

@@ -17,13 +17,16 @@ int is_builtin(char *str_tok)
 	char *builtin[] = {
 		"exit",
 		"cd",
+		"env",
 		 "NULL"};
 	int i = 0;
 
 	while (builtin[i] != "NULL")
 	{
 		if (_strcmp(builtin[i], str_tok) == 0)
+		{
 			return (i);
+		}
 		i++;
 	}
 

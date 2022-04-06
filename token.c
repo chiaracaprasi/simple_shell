@@ -87,7 +87,6 @@ int set_tok_cat(token_t *head, int group)
 	{
 		head = head->next;
 	}
-
 	if (is_builtin(head->token) >= 0)
 		head->cat = 2;
 	if (is_alias(head->token) >= 0)
