@@ -50,4 +50,7 @@ int _atoi(char *s);
 void exc_built(token_t **head, int group);
 void exit_built(token_t **head, int status);
 
+int path_finder(char *cmd);
+int _setenv(char *variable, char *value, char **env);
+
 #endif
