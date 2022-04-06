@@ -38,10 +38,11 @@ void print_prompt();
 /* tokeniser functions */
 token_t *add_token(token_t **head, int group, char *str_tok, char **env);
 void free_tok(token_t **head);
-int set_tok_cat(token_t *head, int group);
+int set_tok_cat(char *tok);
+int set_tok_grp(token_t *head, int group);
 int tokenise(token_t **head, char *str, char **env);
 /* system exc functions */
-int path_start(char *path);
+char *path_checker(char *dir, char *cmd);
 char *path_finder(char *cmd, char **env);
 void exc_cmd_test(char * const cmd_array[]);
 void exc_cmd(token_t **head, int group);
