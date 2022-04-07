@@ -5,7 +5,17 @@
 .B hsh [options] [filename]
 .SH DESCRIPTION
 .B C_SHELL
-is a reproduction of the standard bash shell etc...
+ C_shell is the reproduction of the standard command interpreter for the system.
+ This man page is not intended to be a complete explanation or tutorial of the
+ shell.
+ .SH OVERVIEW
+ The shell is a command that reads lines from either a file or the terminal,
+ interprets them, and generally executes other commands. It is a program that
+ will need to be executed before use. The shell implements a language that has
+ flow control constructs, a macro facility that provides a variety of features
+ including some to aid interactive use. Commands can be typed directlly into the
+ the running shell, or can be put into a file which can be executed directly by
+ the shell.
 .SH INVOCATION
 .B hsh
 here goes some text
@@ -18,7 +28,31 @@ A simple command...
 A pipeline is a sequence of one or more commands separated by the character |. The format for a pipelin eis:
 
 .SH SHELL BUILTIN COMMANDS
-Placeholder 
+The following builtins are supported by hsh
+.br
+.br
+.B env
+.br
+-prints environment.Falls through to std env if more than 1 arg -quotes around\
+ arguments (accepting more stdin on mismatch in progress)
+.br
+.B exit
+-with status
+.br
+-exits the program
+.br
+.B cd
+.br
+- change directories
+.br
+.B setenv
+.br
+- sets environment variable
+.br
+.B unsetenv
+.br
+- unsets environment variable
+.br
 .SH RETURN VALUE
 Do we need this section?
 .B C_SHELL
