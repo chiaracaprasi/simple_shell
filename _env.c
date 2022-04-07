@@ -40,6 +40,7 @@ int set_getenv(char *name, char **env)
 	char *var = NULL;
 	int i = 0;
 
+	
 	while(env[i])
 	{
 		if ((env_start(name, env[i])) == 1)
@@ -62,10 +63,32 @@ int set_getenv(char *name, char **env)
  *
  * Return: 0 for success, -1 for error
  */
+
+char **create_env(char *new_var, char **env, int k)
+{
+	int i = 0;
+	char **new_env = NULL;
+
+	while(env[i] != NULL)
+	{
+		new_env[i] = malloc(strlen(env[i]) + 1);
+		new_env[i] = env[i];
+		i++;
+	}
+	if (i == k)
+	{
+		new_env[i + 1] = malloc(sizeof(char*));
+		new_env[i + 1] = NULL;
+		printf("%s\n", new_env[i + 1]);
+	}
+	return (new_env);
+}
+
+
 int _setenv(char *variable, char *value, char **env)
 {
-	char *new_var;
-	char *old_var;
+	char *new_var, *old_var;
+	char **new_env;
 	int var_len, i;
 
 	if (variable == NULL || value == NULL)
@@ -88,22 +111,43 @@ int _setenv(char *variable, char *value, char **env)
 	new_var = strcat(new_var, value);
 
 	i = set_getenv(variable, env);
-
-	if (old_var != NULL)
-	{
-		env[i] = new_var;
-	}
-	if (old_var == NULL)
-	{
-		i = 0;
-		while (env[i] != NULL)
-			i++;
-		old_var = env[i];
-		old_var = new_var;
-	}
+	env[i] = new_var;
+	new_env = create_env(new_var, env, i);
+	env = new_env;
 
 	return (0);
 }
+
+int _unsetenv(char *variable, char **env)
+{
+	char *new_var = NULL;
+	char *old_var;
+	int var_len, i;
+
+	if (variable == NULL)
+	{
+		perror("Error! Missing variable name or new value");
+		return (-1);
+	}
+
+	while(env[i] != NULL)
+	{
+		if ((env_start(variable, env[i])) == 1)
+		{
+			break;
+		}
+		i++;
+	}
+
+	if (env[i] == NULL)
+		printf("Variable doesn't exist\n");
+
+	else
+		env[i] = new_var;
+
+	return (0);
+}
+
 
 int main(int argc, char *argv[], char **env)
 {
@@ -114,6 +158,8 @@ int main(int argc, char *argv[], char **env)
 
 	_setenv("TEST", "/test", env);
 	printf("New test is %s\n", getenv("TEST"));
-
+	_unsetenv("TEST", env);
+	printf("New test is %s\n", getenv("TEST"));
+	
 	return (0);
 }
