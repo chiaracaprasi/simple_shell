@@ -35,10 +35,11 @@ int env_start(char *path, char *var)
  * Return: pointer to var in list
  */
 
-char *set_getenv(char *name, char **env)
+int set_getenv(char *name, char **env)
 {
 	char *var = NULL;
 	int i = 0;
+
 	while(env[i])
 	{
 		if ((env_start(name, env[i])) == 1)
@@ -48,7 +49,8 @@ char *set_getenv(char *name, char **env)
 		}
 		i++;
 	}
-	return (var);
+
+	return (i);
 }
 
 
@@ -62,10 +64,11 @@ char *set_getenv(char *name, char **env)
  */
 int _setenv(char *variable, char *value, char **env)
 {
-	char *new_var, **old_var;
+	char *new_var;
+	char *old_var;
 	int var_len, i;
 
-	if (variable == NULL || value == NULL || *env == NULL)
+	if (variable == NULL || value == NULL)
 	{
 		perror("Error! Missing variable name or new value");
 		return (-1);
@@ -79,38 +82,38 @@ int _setenv(char *variable, char *value, char **env)
 		perror("Error: malloc failed");
 		return (-1);
 	}
+
 	new_var = strcat(new_var, variable);
 	new_var = strcat(new_var, "=");
-
 	new_var = strcat(new_var, value);
 
-	*old_var = set_getenv(variable, env);
+	i = set_getenv(variable, env);
 
-	if (*old_var != NULL)
-		*old_var = new_var;
-
+	if (old_var != NULL)
+	{
+		env[i] = new_var;
+	}
 	if (old_var == NULL)
 	{
 		i = 0;
-		while (env[i])
+		while (env[i] != NULL)
 			i++;
-		*old_var = env[i];
-		*old_var = new_var;
+		old_var = env[i];
+		old_var = new_var;
 	}
 
 	return (0);
 }
 
-int main(void)
+int main(int argc, char *argv[], char **env)
 {
-	char *home, *new_home, **env;
+	char *home, *new_home;
 
-	home = getenv("HOME");
-	printf(" orgingal $HOME is %s", home);
+	home = getenv("TEST");
+	printf("Orginal $TEST is %s\n", home);
 
-	_setenv("HOME", "test", env);
-	new_home = getenv("HOME");
-	printf("New home is %s", new_home);
+	_setenv("TEST", "/test", env);
+	printf("New test is %s\n", getenv("TEST"));
 
 	return (0);
 }
