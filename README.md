@@ -4,7 +4,7 @@
 ## 🤿 What is the C Shell? 
 
 C Shell is a simple reproduction of the original UNIX shell in C. Same as the orginal shell, it's a program that takes commands by the user via the keyboard and gives them to the OS (operating system) to perform. 
-To learn more about how the shell works, you can read our blog at [insert link]
+To learn more about how the shell works, you can read our blog at [here 🔗](https://medium.com/@chiaracaprasi/how-the-shell-works)
 
 This project has been created using **C Programming Language** and is part of Holberton School Australia curriculum. 
 
@@ -62,7 +62,7 @@ $ cd Betty; ./install.sh
 
 ## 🦪 How to use the C Shell 
 
-> Step 1 - Clone the repo locally using this command
+> Step 1 - Clone the repo locally using this command 
 ```
 gh repo clone chiaracaprasi/simple_shell
 ```
