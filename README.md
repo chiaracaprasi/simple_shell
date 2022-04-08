@@ -1,6 +1,8 @@
 #  🌊🐚 C SHELL 
 #### By Chiara, Declan and Matthew
 
+   ![image](https://user-images.githubusercontent.com/91517809/162389298-d8dadda8-e83f-4641-8954-cd7e697a5275.png) 
+
 ## 🤿 What is the C Shell? 
 
 C Shell is a simple reproduction of the original UNIX shell in C. Same as the orginal shell, it's a program that takes commands by the user via the keyboard and gives them to the OS (operating system) to perform. 
@@ -137,3 +139,8 @@ It goes to a new line but then cmd appears twice like shown below
 -- local_* (all local testing files)
 - Day_1 Folder - contains all tasks done in day 1, and is kept to be used as a reference for all future work.
 - playground - for testing and experimenting during the planning phase of the project. Kept long term as a refresher if needed.
+   
+![image](https://user-images.githubusercontent.com/91517809/162389572-c197bc8a-315a-4c22-8c3b-aac698625e25.png)
+
+  
+  
