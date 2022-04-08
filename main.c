@@ -13,23 +13,25 @@
  */
 int group_sort(int grp_test, token_t **head, char **env)
 {
-	if ((*head) != NULL)
+	token_t *use = *head;
+
+	if (use != NULL)
 	{
-		while ((*head)->group != grp_test)
+		while (use->group != grp_test)
 		{
-			if ((*head)->next != NULL)
-				(*head) = (*head)->next;
+			if (use->next != NULL)
+				use = use->next;
 			else
 				break;
 		}
 	}
 
-	if ((*head)->cat == 0)
+	if (use->cat == 0)
 	{
 		print_error_unknown(head, grp_test);
 		return (grp_test + 1);
 	}
-	if ((*head)->cat == 1)
+	if (use->cat == 1)
 	{
 		exc_cmd(head, grp_test);
 		return (grp_test + 1);
@@ -40,7 +42,7 @@ int group_sort(int grp_test, token_t **head, char **env)
 		exc_built(head, grp_test, env);
 		return (grp_test + 1);
 	}
-	return (grp_test);
+	return (grp_test +  1);
 }
 
 /**
@@ -71,24 +73,21 @@ int get_line(char **env)
 {
 	token_t *head = NULL;
 	char *buffer = NULL;
-	size_t bufsize = 0, error;
-	int flag = 0, group, grp_test = 1;
+	size_t bufsize = 0;
+	ssize_t error = 0;
+	int flag = 0, group, grp_test = 1, l = 0;
 
 	/*create liked list with the hist_func stuff*/
 	do {
-		flag == -1;
 		grp_test = 1;
 		if (isatty(STDIN_FILENO))
-		{
 			print_prompt();
-			flag = 0;
-		}
+
 		error = getline(&buffer, &bufsize, stdin);
 		if (error <= 0 || buffer[0] == '\n')
 		{
-			printf("is in if loop\n");
 			if (!is_end_of_shell(buffer, error))
-				return (0);
+				flag = -1;
 			continue;
 		}
 		if (contain_EOF(buffer) == 1)
@@ -102,7 +101,9 @@ int get_line(char **env)
 			grp_test = group_sort(grp_test, &head, env);
 		}
 		free_tok(&head);
+		l++;
 	} while (flag != -1);
+	print_logo_goodbye();
 	return (0);
 }
 
@@ -118,7 +119,6 @@ int is_end_of_shell(char *buffer, int error)
 	if (buffer)
 	{
 		buffer = NULL;
-		return (1);
 	}
 	if (error <= 0)
 	{

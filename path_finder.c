@@ -35,6 +35,7 @@ char *path_checker(char *dir, char *cmd)
 	path_con = _strcat(path_con, dir);
 	path_con = _strcat(path_con, "/");
 	path_con = _strcat(path_con, cmd);
+
 	file_found = access(path_con, X_OK);
 	if (file_found == -1)
 	{
@@ -96,12 +97,14 @@ char *find_real_path(char *dir, char *cmd)
 		if (path_list_cpy != NULL)
 			break;
 		i++;
-
 	}
 	i = 0;
 
-	if (path_list_cpy != NULL)
+	if (path_list_cpy[0] != '\0')
+	{
 		return (path_list_cpy);
+	}
+
 	return (cmd);
 }
 /**
@@ -129,8 +132,11 @@ char *path_finder(char *cmd, char **env)
 	else
 	{
 		path = find_real_path(dir, cmd);
-		if (path == NULL)
-			return (cmd);
 	}
-	return (path);
+	if (path[0] != '/')
+	{
+/*		free(dir);*/
+		return (cmd);
+	} else
+		return (path);
 }

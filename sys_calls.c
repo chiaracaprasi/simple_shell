@@ -32,7 +32,7 @@ void exc_cmd(token_t **head, int group)
 	char *argv[100];
 	pid_t child_pid;
 	int status, argc = 0, i = 0;
-	token_t *hold = *head;
+	token_t *hold = *head, *fill = *head;
 
 	while (hold->group < group)
 		hold = hold->next;
@@ -46,11 +46,11 @@ void exc_cmd(token_t **head, int group)
 	}
 	while (i < argc)
 	{
-		if (_strcmp((*head)->token, ";") == 0)
+		if (_strcmp(fill->token, ";") == 0)
 			break;
-		argv[i] = (*head)->token;
+		argv[i] = fill->token;
 		i++;
-		(*head) = (*head)->next;
+		fill = fill->next;
 	}
 	argv[i] = NULL;
 
@@ -65,4 +65,6 @@ void exc_cmd(token_t **head, int group)
 		exc_cmd_test(argv);
 	}
 	wait(&status);
+
+	return;
 }

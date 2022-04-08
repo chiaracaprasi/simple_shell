@@ -15,13 +15,13 @@
 void exc_built(token_t **head, int group, char **env)
 {
 	char *argv[100];
-	token_t *hold = *head;
+	token_t *hold = *head, *use = *head;
 	int builtNum, argc = 0, i = 0, funcNum;
 
 	while (hold->group < group)
 	{
 		hold = hold->next;
-		*head = (*head)->next;
+		use = use->next;
 	}
 
 	while (hold->group == group)
@@ -33,11 +33,11 @@ void exc_built(token_t **head, int group, char **env)
 	}
 	while (i < argc)
 	{
-		if (_strcmp((*head)->token, ";") == 0)
+		if (_strcmp(use->token, ";") == 0)
 			break;
-		argv[i] = (*head)->token;
+		argv[i] = use->token;
 		i++;
-		(*head) = (*head)->next;
+		use = use->next;
 	}
 	argv[i] = NULL;
 

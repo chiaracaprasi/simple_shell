@@ -65,13 +65,12 @@ void free_tok(token_t **head)
 
 	if (head == NULL)
 		return;
-
 	while (*head != NULL)
 	{
 		hold = *head;
-		*head = (*head)->next;
 		if (hold->token != NULL)
 			free(hold->token);
+		*head = (*head)->next;
 		free(hold);
 	}
 	head = NULL;
@@ -110,8 +109,11 @@ int set_tok_cat(char *tok)
  */
 int set_tok_grp(token_t *head, int group)
 {
+	token_t *use = head;
 
-	if (head->cat == 7)
+	while (use->next != NULL)
+		use = use->next;
+	if (use->cat == 7)
 		return (group + 1);
 	return (group);
 }
