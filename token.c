@@ -15,25 +15,29 @@
  *
  * Return: pointer to new list element.
  */
-token_t *add_token(token_t **head, int group, char *str_tok)
+token_t *add_token(token_t **head, int group, char *str_tok, char **env)
 {
 	char *strCpy;
 	token_t *new = NULL;
 	token_t *hold = NULL;
+	int file_found;
 
 	strCpy = _strdup(str_tok);
 	if (strCpy == NULL)
 		return (NULL);
-
 	new = malloc(sizeof(*new));
 	if (new == NULL)
 		return (NULL);
 
 	new->group = group;
-	new->cat = 0;
-	strCpy = path_finder(strCpy);
-	if ((path_start(strCpy)) == 1)
-		new->cat = 1;
+	new->cat = set_tok_cat(str_tok);
+	if (new->cat == 0)
+	{
+		strCpy = path_finder(strCpy, env);
+		file_found = access(strCpy, X_OK);
+		if (file_found >= 0)
+			new->cat = 1;
+	}
 	new->token = strCpy;
 	new->next = NULL;
 	if (*head == NULL)
@@ -74,35 +78,41 @@ void free_tok(token_t **head)
 }
 
 /**
- * set_tok_cat - sets category in list
- * @head: list to free
+ * set_tok_cat - chooses cat from list.
+ * @tok: token to check
+ * Description: long description
+ *
+ * Return: cat number
+ */
+int set_tok_cat(char *tok)
+{
+	if (is_builtin(tok) >= 0)
+		return (2);
+	if (is_alias(tok) >= 0)
+		return (3);
+	if (tok[0] == '-')
+		return (4);
+	if (_strcmp(tok, "||") == 0)
+		return (5);
+	if (_strcmp(tok, "&&") == 0)
+		return (6);
+	if (_strcmp(tok, ";") == 0)
+		return (7);
+	return (0);
+}
+/**
+ * set_tok_grp - sets group;
+ * @head: list to set group of
  * @group: group number tokens are up to.
  * Description: long description
  *
- * Return: void
+ * Return: group
  */
-int set_tok_cat(token_t *head, int group)
+int set_tok_grp(token_t *head, int group)
 {
-	while (head->next != NULL)
-	{
-		head = head->next;
-	}
 
-	if (is_builtin(head->token) >= 0)
-		head->cat = 2;
-	if (is_alias(head->token) >= 0)
-		head->cat = 3;
-	if (head->token[0] == '-')
-		head->cat = 4;
-	if (_strcmp(head->token, "||") == 0)
-		head->cat = 5;
-	if (_strcmp(head->token, "&&") == 0)
-		head->cat = 6;
-	if (_strcmp(head->token, ";") == 0)
-	{
-		head->cat = 7;
+	if (head->cat == 7)
 		return (group + 1);
-	}
 	return (group);
 }
 /**
@@ -111,7 +121,7 @@ int set_tok_cat(token_t *head, int group)
  * @str: full str passed into command line
  * Return: always 0.
  */
-int tokenise(token_t **head, char *str)
+int tokenise(token_t **head, char *str, char **env)
 {
 	char *rem_nl = strtok(str, "\n");
 	char *buff_commands = strtok(rem_nl, " ");
@@ -119,8 +129,8 @@ int tokenise(token_t **head, char *str)
 
 	while (buff_commands != NULL)
 	{
-		add_token(head, group, buff_commands);
-		group = set_tok_cat(*head, group);
+		add_token(head, group, buff_commands, env);
+		group = set_tok_grp(*head, group);
 		buff_commands = strtok(NULL, " ");
 	}
 

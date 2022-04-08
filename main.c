@@ -70,7 +70,7 @@ int get_line(char **env)
 		fflush(stdin);
 		if (flag != 1)
 		{
-			group = tokenise(&head, buffer);
+			group = tokenise(&head, buffer, env);
 			while (grp_test <= group)
 			{
 				grp_test = group_sort(grp_test, &head, env);
