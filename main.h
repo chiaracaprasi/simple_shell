@@ -62,5 +62,8 @@ void exit_built(token_t **head, int status);
 void cd_built(char *dir, char **env);
 void env_built (char **env);
 char *_getenv (char *name, char **env);
+int env_start(char *path, char *var);
+/* functions for testing */
+void print_list(const token_t *h);
 
 #endif

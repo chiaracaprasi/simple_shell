@@ -16,10 +16,21 @@ char *path_checker(char *dir, char *cmd)
 {
 	char *path_con = NULL;
 	int newsize = (_strlen(dir) + _strlen(cmd) + 2), file_found;
+	int i = 0;
 
 	path_con = malloc(newsize * sizeof(char));
 	if (path_con == NULL)
 		return (NULL);
+
+	while (dir[i] != '\0')
+	{
+		if (dir[i] == ':')
+		{
+			dir[i] = '\0';
+			break;
+		}
+		i++;
+	}
 
 	path_con = _strcat(path_con, dir);
 	path_con = _strcat(path_con, "/");
@@ -34,6 +45,33 @@ char *path_checker(char *dir, char *cmd)
 	return (path_con);
 }
 
+
+char *get_path(char *path, int nums)
+{
+	int i = 0, k = 0;
+	char *search = _strdup(path);
+
+	if (k <= nums)
+	{
+		while (search[i] != '\0')
+		{
+			if (search[i] == ':' || search[i] == '\0')
+			{
+					if (k == nums)
+					{
+						search[i] = '\0';
+						break;
+					}
+					k++;
+			}
+			i++;
+		}
+	}
+	/*moves past newly set null byte */
+	i++;
+
+	return(search + i);
+}
 /**
  * find_real_path - finds the correct path value
  * @dir: the dir to check
@@ -44,21 +82,27 @@ char *path_checker(char *dir, char *cmd)
  */
 char *find_real_path(char *dir, char *cmd)
 {
-	char *path[20];
-	char *path_list = strtok(dir, ":");
 	char *path_list_cpy = NULL;
 	int len2 = _strlen(cmd), newsize;
 	int file_found, i = 0, k = 0;
 
-	while (path_list != NULL)
+	while (k < 25)
 	{
-		path_list_cpy = _strdup(path_list);
+		path_list_cpy = get_path(dir, k);
+		if (path_list_cpy[0] == '\0')
+			break;
+		k++;
 		path_list_cpy = path_checker(path_list_cpy, cmd);
 		if (path_list_cpy != NULL)
 			break;
-		path_list = strtok(NULL, ":");
+		i++;
+
 	}
-	return (path_list_cpy);
+	i = 0;
+
+	if (path_list_cpy != NULL)
+		return (path_list_cpy);
+	return (cmd);
 }
 /**
  * path_finder - handles the PATH
@@ -78,7 +122,6 @@ char *path_finder(char *cmd, char **env)
 	if (dir == NULL)
 		dir = _strdup("/bin/");
 	len1 = strlen(dir);
-
 	if (cmd[0] == '/')
 	{
 			return (cmd);
@@ -89,6 +132,5 @@ char *path_finder(char *cmd, char **env)
 		if (path == NULL)
 			return (cmd);
 	}
-
 	return (path);
 }

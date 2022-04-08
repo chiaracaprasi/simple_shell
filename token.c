@@ -25,7 +25,6 @@ token_t *add_token(token_t **head, int group, char *str_tok, char **env)
 	strCpy = _strdup(str_tok);
 	if (strCpy == NULL)
 		return (NULL);
-
 	new = malloc(sizeof(*new));
 	if (new == NULL)
 		return (NULL);
