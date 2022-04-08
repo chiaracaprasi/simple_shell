@@ -99,11 +99,6 @@ Full Path name E.G:
 the ';' seperator will only work if there is a space either side of it   
 - (ls ; rm *.c) will work      
 - (ls;rm *.c) will not work.     
-### Handling Ctrl+C 
-When the user inputs ^C shell doesn't quit, howver formatting needs fixing. 
-It goes to a new line but then cmd appears twice like shown below
-^C -> 
-^C -> 
 
 ## ✍🏽 Authors
 
