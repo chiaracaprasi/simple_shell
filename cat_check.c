@@ -21,7 +21,7 @@ int is_builtin(char *str_tok)
 		 "NULL"};
 	int i = 0;
 
-	while (builtin[i] != "NULL")
+	while (_strcmp(builtin[i], "NULL") != 0)
 	{
 		if (_strcmp(builtin[i], str_tok) == 0)
 		{
@@ -51,7 +51,7 @@ int is_alias(char *str_tok)
 		 "NULL"};
 	int i = 0;
 
-	while (alias[i] != "NULL")
+	while (_strcmp(alias[i], "NULL") != 0)
 	{
 		if (_strcmp(alias[i], str_tok) == 0)
 			return (i);

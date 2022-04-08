@@ -44,6 +44,25 @@ int group_sort(int grp_test, token_t **head, char **env)
 }
 
 /**
+ * contain_EOF - checks if the input is end of shell or new line
+ * @buffer: inputter string
+ * @error: number of bytes in string
+ * Return: 0 if \n or 1 if no bytes.
+ */
+int contain_EOF(char *buffer)
+{
+	int i = 0;
+	while (buffer[i] != '\0')
+	{
+		if (buffer[i] == -1)
+			return (1);
+		i++;
+	}
+
+	return (0);
+}
+
+/**
  * get_line - gets line and waits for input.
  * @env: list of enviroment properties
  * Return: always 0.
@@ -57,29 +76,36 @@ int get_line(char **env)
 
 	/*create liked list with the hist_func stuff*/
 	do {
+		flag == -1;
 		grp_test = 1;
 		if (isatty(STDIN_FILENO))
+		{
 			print_prompt();
+			flag = 0;
+		}
 		error = getline(&buffer, &bufsize, stdin);
 		if (error <= 0 || buffer[0] == '\n')
 		{
+			printf("is in if loop\n");
 			if (!is_end_of_shell(buffer, error))
 				return (0);
 			continue;
 		}
-		fflush(stdin);
-		if (flag != 1)
+		if (contain_EOF(buffer) == 1)
 		{
-			group = tokenise(&head, buffer, env);
-			while (grp_test <= group)
-			{
-				grp_test = group_sort(grp_test, &head, env);
-			}
-			free_tok(&head);
+			flag = 1;
 		}
-	} while (flag == 0);
+		fflush(stdin);
+		group = tokenise(&head, buffer, env);
+		while (grp_test <= group)
+		{
+			grp_test = group_sort(grp_test, &head, env);
+		}
+		free_tok(&head);
+	} while (flag != -1);
 	return (0);
 }
+
 
 /**
  * is_end_of_shell - checks if the input is end of shell or new line
