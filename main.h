@@ -66,7 +66,4 @@ int env_start(char *path, char *var);
 /* functions for testing */
 void print_list(const token_t *h);
 
-int path_finder(char *cmd);
-int _setenv(char *variable, char *value, char **env);
-
 #endif
