@@ -51,7 +51,7 @@ int env_start(char *path, char *var)
  * @name: the variable to look for
  * return: pointer to variable or NULL if no match.
  */
-char *_getenv (char *name, char **env)
+char *_getenv(char *name, char **env)
 {
 	char *var = NULL;
 	int i = 0;
@@ -59,10 +59,10 @@ char *_getenv (char *name, char **env)
 	while (env[i])
 	{
 		if ((env_start(name, env[i])) == 1)
-			{
-				var = env[i];
-				break;
-			}
+		{
+			var = env[i];
+			break;
+		}
 		i++;
 	}
 
