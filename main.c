@@ -136,7 +136,7 @@ int is_end_of_shell(char *buffer, int error)
  */
 void print_prompt(void)
 {
-	write(STDOUT_FILENO, "♪┏(・o･)┛♪┗ ( ･o･) ┓ ", 3);
+	write(STDOUT_FILENO, "♪/┏/(/・o･)┛♪┗ ( ･o･) ┓ ", 3);
 }
 /**
  * main - voids ac.
