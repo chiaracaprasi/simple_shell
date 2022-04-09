@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include "main.h"
 
 /**
  * *_realloc - reallocates memory block and copies old->new
@@ -40,7 +41,7 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 
 	if (new_size < old_size)
 		old_size = new_size;
-	
+
 	temp = ptr;
 
 	for (i = 0; i < old_size; i++)
