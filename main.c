@@ -54,6 +54,7 @@ int group_sort(int grp_test, token_t **head, char **env)
 int contain_EOF(char *buffer)
 {
 	int i = 0;
+
 	while (buffer[i] != '\0')
 	{
 		if (buffer[i] == -1)
@@ -133,9 +134,9 @@ int is_end_of_shell(char *buffer, int error)
  * print_prompt - prints prompt
  * Return: nothing.
  */
-void print_prompt()
+void print_prompt(void)
 {
-	write(STDOUT_FILENO, "-> ", 3);
+	write(STDOUT_FILENO, "♪┏(・o･)┛♪┗ ( ･o･) ┓ ", 3);
 }
 /**
  * main - voids ac.

@@ -34,7 +34,7 @@ void signal_handler(int signal);
 int print_logo_welcome(void);
 int print_logo_goodbye(void);
 void print_error_unknown(token_t **head, int group);
-void print_prompt();
+void print_prompt(void);
 /* tokeniser functions */
 token_t *add_token(token_t **head, int group, char *str_tok, char **env);
 void free_tok(token_t **head);
@@ -60,8 +60,8 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 void exc_built(token_t **head, int group, char **env);
 void exit_built(token_t **head, int status);
 void cd_built(char *dir, char **env);
-void env_built (char **env);
-char *_getenv (char *name, char **env);
+void env_built(char **env);
+char *_getenv(char *name, char **env);
 int env_start(char *path, char *var);
 /* functions for testing */
 void print_list(const token_t *h);
