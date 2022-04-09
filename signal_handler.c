@@ -9,7 +9,7 @@
  * print_newline - prints a newline
  * Return: nothing.
  */
-void print_newline()
+void print_newline(void)
 {
 	write(STDOUT_FILENO, "\n", 1);
 }
