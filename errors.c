@@ -1,7 +1,5 @@
 #include "main.h"
 
-void _puts(char *str);
-
 /**
  * print_error_unknown - prints an error that unknow object passed through.
  * @head: list of tokens to print the token that is unknown.
