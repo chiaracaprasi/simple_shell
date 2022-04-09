@@ -16,7 +16,7 @@ int set_getenv(char *name, char **env)
 {
 	int i = 0;
 
-	while(env[i] != NULL)
+	while (env[i] != NULL)
 	{
 		if ((env_start(name, env[i])) == 1)
 		{
