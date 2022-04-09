@@ -10,6 +10,7 @@
  * @head: first string to compare
  * @group: second string to compare
  * @str_tok: tokens
+ * @env: enviroment variables
  * Description: Every new elemnt category is set to 1
  * and will be defined as a syste call unless told otherwise.
  *
@@ -121,6 +122,7 @@ int set_tok_grp(token_t *head, int group)
  * tokenise - splits the initial string into it's seperate parts.
  * @head: list to store tokens in
  * @str: full str passed into command line
+ * @env: enviroment variables
  * Return: always 0.
  */
 int tokenise(token_t **head, char *str, char **env)
