@@ -65,6 +65,4 @@ void exc_cmd(token_t **head, int group)
 		exc_cmd_test(argv);
 	}
 	wait(&status);
-
-	return;
 }
