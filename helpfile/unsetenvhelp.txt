@@ -1,0 +1,4 @@
+unsetenv: unsetenv
+   Remove each Name from the list of defined environmental variables
+
+   Return success unless NAME is non existing.
