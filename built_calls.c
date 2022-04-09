@@ -8,6 +8,7 @@
  * exc_built - execute a builtin function
  * @head: list of tokens to execute.
  * @group: the group of elements to execute.
+ * @env: enviroment variables
  * Description: long description
  *
  * Return: 0 upon success

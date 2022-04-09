@@ -46,6 +46,13 @@ char *path_checker(char *dir, char *cmd)
 	return (path_con);
 }
 
+/**
+ * get_path - finds the path
+ * @path: path name
+ * @nums: number
+ *
+ * Return: pointer
+ **/
 
 char *get_path(char *path, int nums)
 {
@@ -58,12 +65,12 @@ char *get_path(char *path, int nums)
 		{
 			if (search[i] == ':' || search[i] == '\0')
 			{
-					if (k == nums)
-					{
-						search[i] = '\0';
-						break;
-					}
-					k++;
+				if (k == nums)
+				{
+					search[i] = '\0';
+					break;
+				}
+				k++;
 			}
 			i++;
 		}
@@ -71,7 +78,7 @@ char *get_path(char *path, int nums)
 	/*moves past newly set null byte */
 	i++;
 
-	return(search + i);
+	return (search + i);
 }
 /**
  * find_real_path - finds the correct path value
@@ -110,6 +117,7 @@ char *find_real_path(char *dir, char *cmd)
 /**
  * path_finder - handles the PATH
  * @cmd: command entered
+ * @env: envoriomental variables
  * Description: locates if command entered exists in the bin directory
  *
  * Return: 0 for success, -1 for not found
@@ -127,7 +135,7 @@ char *path_finder(char *cmd, char **env)
 	len1 = strlen(dir);
 	if (cmd[0] == '/')
 	{
-			return (cmd);
+		return (cmd);
 	}
 	else
 	{

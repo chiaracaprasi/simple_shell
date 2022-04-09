@@ -3,7 +3,7 @@
 /**
  * print_error_unknown - prints an error that unknow object passed through.
  * @head: list of tokens to print the token that is unknown.
- * grp_test: used to find unknown token.
+ * @group: used to find unknown token.
  *
  * return: void
  */

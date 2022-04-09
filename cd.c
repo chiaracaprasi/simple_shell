@@ -6,7 +6,6 @@
 /**
  * set_getenv - get enviroment var list for setenv function
  * @name: variable name
- * @value: variable value
  * @env: array containing environment variables.
  *
  * Return: pointer to var in list
@@ -29,6 +28,9 @@ int set_getenv(char *name, char **env)
 }
 /**
  * _setenv - handles setting an env variable
+ * @variable: variablename
+ * @value: variable value
+ * @env: enviromental variable
  *
  * return: void
  */
@@ -62,7 +64,9 @@ void _setenv(char *variable, char *value, char **env)
 
 /**
  * cd_built- handles cd builtin, limited, does not UPDATE PWD.
- * :
+ * @dir: directory name
+ * @env: enviromental variable
+ *
  * Description: locates if command entered exists in the bin directory
  *
  * Return: 0 for success, -1 for not found

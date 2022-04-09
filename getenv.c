@@ -49,7 +49,7 @@ int env_start(char *path, char *var)
  * _getenv - finds the enviro variable sent to this function
  * @env: the list of env variables
  * @name: the variable to look for
- * return: pointer to variable or NULL if no match.
+ * Return: pointer to variable or NULL if no match.
  */
 char *_getenv(char *name, char **env)
 {
