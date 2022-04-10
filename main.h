@@ -1,7 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#define clear() printf("\033[H\033[J")
+#define clear() _puts("\033[H\033[J")
 
 /**
 * struct s_tokens - list of input broken down into words
@@ -26,13 +26,13 @@ typedef struct s_tokens
 /*Main functions*/
 int is_builtin(char *str_tok);
 int is_alias(char *str_tok);
-int group_sort(int grp_test, token_t **head, char **env);
+int group_sort(int grp_test, token_t **head, char **env, char *buffer);
 int get_line(char **env);
 int is_end_of_shell(char *buffer, int error);
 void signal_handler(int signal);
 /* print functions */
-int print_logo_welcome(void);
-int print_logo_goodbye(void);
+void print_logo_welcome(void);
+void print_logo_goodbye(void);
 void print_error_unknown(token_t **head, int group);
 void print_prompt(void);
 /* tokeniser functions */
@@ -57,8 +57,8 @@ int _putchar(char c);
 char *_strcat(char *dest, char *src);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 /* builtin funcs */
-void exc_built(token_t **head, int group, char **env);
-void exit_built(token_t **head, int status);
+void exc_built(token_t **head, int group, char **env, char *buffer);
+void exit_built(token_t **head, int status, char *buffer);
 void cd_built(char *dir, char **env);
 void env_built(char **env);
 char *_getenv(char *name, char **env);

@@ -36,8 +36,8 @@ int set_getenv(char *name, char **env)
  */
 void _setenv(char *variable, char *value, char **env)
 {
-	char *new_var, *old_var;
-	int var_len, i = 0, limit = 0;
+	char *new_var;
+	int var_len, i = 0;
 
 	if (variable == NULL || value == NULL)
 	{

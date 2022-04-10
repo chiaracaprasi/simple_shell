@@ -6,7 +6,7 @@
  *
  * Return: 0 for success
 */
-int print_logo_welcome(void)
+void print_logo_welcome(void)
 {
 	_puts("         Welcome to...\n");
 	_puts("\n");
@@ -26,7 +26,6 @@ int print_logo_welcome(void)
 	_puts("\n");
 	_puts("\n");
 	_puts("\n");
-	return (0);
 }
 
 /**
@@ -34,7 +33,7 @@ int print_logo_welcome(void)
  *
  * Return: 0 for success
 */
-int print_logo_goodbye(void)
+void print_logo_goodbye(void)
 {
 	_puts("          Goodbye!\n");
 	_puts("\n");
@@ -54,5 +53,4 @@ int print_logo_goodbye(void)
 	_puts("\n");
 	_puts("\n");
 	_puts("\n");
-	return (0);
 }

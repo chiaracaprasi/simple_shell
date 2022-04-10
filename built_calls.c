@@ -13,7 +13,7 @@
  *
  * Return: 0 upon success
  */
-void exc_built(token_t **head, int group, char **env)
+void exc_built(token_t **head, int group, char **env, char *buffer)
 {
 	char *argv[100];
 	token_t *hold = *head, *use = *head;
@@ -50,11 +50,14 @@ void exc_built(token_t **head, int group, char **env)
 		if (argv[1] != NULL)
 			funcNum = _atoi(argv[1]);
 
-		exit_built(head, funcNum);
+		exit_built(head, funcNum, buffer);
 	}
 	if (builtNum == 1)
 	{
-		cd_built(argv[1], env);
+		if (argc <= 2)
+			cd_built(argv[1], env);
+		else
+			_puts("shell: cd: too many arguments\n");
 	}
 	if (builtNum == 2)
 	{

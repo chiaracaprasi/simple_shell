@@ -6,8 +6,10 @@
  * @head: the token list to free
  * return: void
  */
-void exit_built(token_t **head, int status)
+void exit_built(token_t **head, int status, char *buffer)
 {
+	free(buffer);
+	buffer = NULL;
 	print_logo_goodbye();
 	free_tok(head);
 	exit(status);

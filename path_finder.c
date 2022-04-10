@@ -15,7 +15,7 @@
 char *path_checker(char *dir, char *cmd)
 {
 	char *path_con = NULL;
-	int newsize = (_strlen(dir) + _strlen(cmd) + 2), file_found;
+	int newsize = (_strlen(dir) + _strlen(cmd) + 2), file_found = 0;
 	int i = 0;
 
 	path_con = malloc(newsize * sizeof(char));
@@ -40,7 +40,7 @@ char *path_checker(char *dir, char *cmd)
 	if (file_found == -1)
 	{
 		free(path_con);
-		return (NULL);
+		return (dir);
 	}
 
 	return (path_con);
@@ -54,14 +54,13 @@ char *path_checker(char *dir, char *cmd)
  * Return: pointer
  **/
 
-char *get_path(char *path, int nums)
+char *get_path(char *search, int nums)
 {
-	int i = 0, k = 0;
-	char *search = _strdup(path);
+	int i = 0, k = 0, l = 0;
 
 	if (k <= nums)
 	{
-		while (search[i] != '\0')
+		while (search[i] != '\0' || k != nums)
 		{
 			if (search[i] == ':' || search[i] == '\0')
 			{
@@ -70,15 +69,15 @@ char *get_path(char *path, int nums)
 					search[i] = '\0';
 					break;
 				}
+				l = i + 1;
 				k++;
 			}
 			i++;
 		}
 	}
-	/*moves past newly set null byte */
-	i++;
 
-	return (search + i);
+	i++;
+	return (search + l);
 }
 /**
  * find_real_path - finds the correct path value
@@ -90,28 +89,30 @@ char *get_path(char *path, int nums)
  */
 char *find_real_path(char *dir, char *cmd)
 {
-	char *path_list_cpy = NULL;
-	int len2 = _strlen(cmd), newsize;
-	int file_found, i = 0, k = 0;
+	char *path_list_cpy = _strdup(dir);
+	char *address_of_list = path_list_cpy;
+	int i = 0, k = 0, size1, size2;
 
 	while (k < 25)
 	{
-		path_list_cpy = get_path(dir, k);
+		path_list_cpy = get_path(path_list_cpy, k);
 		if (path_list_cpy[0] == '\0')
 			break;
 		k++;
+		size1 = _strlen(path_list_cpy);
 		path_list_cpy = path_checker(path_list_cpy, cmd);
-		if (path_list_cpy != NULL)
+		size2 = _strlen(path_list_cpy);
+		if (size1 != size2)
 			break;
 		i++;
 	}
-	i = 0;
 
 	if (path_list_cpy[0] != '\0')
 	{
 		return (path_list_cpy);
 	}
 
+	free(address_of_list);
 	return (cmd);
 }
 /**
@@ -125,25 +126,27 @@ char *find_real_path(char *dir, char *cmd)
 char *path_finder(char *cmd, char **env)
 {
 	char *dir = NULL;
-	int file_found;
-	int len1, len2 = strlen(cmd);
 	char *path = NULL;
+	int flag = 0;
 
-	dir =  _getenv("PATH", env);
-	if (dir == NULL)
-		dir = _strdup("/bin/");
-	len1 = strlen(dir);
 	if (cmd[0] == '/')
 	{
 		return (cmd);
 	}
-	else
+	dir =  _getenv("PATH", env);
+	if (dir == NULL)
 	{
-		path = find_real_path(dir, cmd);
+		dir = _strdup("/bin/");
+		flag = 1;
 	}
+	path = find_real_path(dir, cmd);
 	if (path[0] != '/')
 	{
-/*		free(dir);*/
+		if (flag == 1)
+		{
+			free(dir);
+			dir = NULL;
+		}
 		return (cmd);
 	} else
 		return (path);

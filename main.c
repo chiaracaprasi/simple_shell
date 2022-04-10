@@ -11,7 +11,7 @@
  * @head: list of tokens
  * Return: always 0.
  */
-int group_sort(int grp_test, token_t **head, char **env)
+int group_sort(int grp_test, token_t **head, char **env, char *buffer)
 {
 	token_t *use = *head;
 
@@ -39,30 +39,10 @@ int group_sort(int grp_test, token_t **head, char **env)
 
 	if ((*head)->cat == 2)
 	{
-		exc_built(head, grp_test, env);
+		exc_built(head, grp_test, env, buffer);
 		return (grp_test + 1);
 	}
 	return (grp_test +  1);
-}
-
-/**
- * contain_EOF - checks if the input is end of shell or new line
- * @buffer: inputter string
- * @error: number of bytes in string
- * Return: 0 if \n or 1 if no bytes.
- */
-int contain_EOF(char *buffer)
-{
-	int i = 0;
-
-	while (buffer[i] != '\0')
-	{
-		if (buffer[i] == -1)
-			return (1);
-		i++;
-	}
-
-	return (0);
 }
 
 /**
@@ -78,6 +58,12 @@ int get_line(char **env)
 	ssize_t error = 0;
 	int flag = 0, group, grp_test = 1, l = 0;
 
+	if (isatty(STDIN_FILENO))
+	{
+		print_logo_welcome();
+		clear();
+	}
+
 	/*create liked list with the hist_func stuff*/
 	do {
 		grp_test = 1;
@@ -91,16 +77,15 @@ int get_line(char **env)
 				flag = -1;
 			continue;
 		}
-		if (contain_EOF(buffer) == 1)
-		{
-			flag = 1;
-		}
+
 		fflush(stdin);
 		group = tokenise(&head, buffer, env);
 		while (grp_test <= group)
 		{
-			grp_test = group_sort(grp_test, &head, env);
+			grp_test = group_sort(grp_test, &head, env, buffer);
 		}
+		free(buffer);
+		buffer = NULL;
 		free_tok(&head);
 		l++;
 	} while (flag != -1);
@@ -136,7 +121,7 @@ int is_end_of_shell(char *buffer, int error)
  */
 void print_prompt(void)
 {
-	write(STDOUT_FILENO, "♪/┏/(/・o･)┛♪┗ ( ･o･) ┓ ", 3);
+	write(STDOUT_FILENO, "->", 3);
 }
 /**
  * main - voids ac.
@@ -149,8 +134,6 @@ int main(int ac, char **av, char **env)
 {
 	(void) ac;
 	(void) av;
-	clear();
-	print_logo_welcome();
 
 	signal(SIGINT, signal_handler);
 	return (get_line(env));

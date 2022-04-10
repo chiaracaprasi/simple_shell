@@ -129,7 +129,7 @@ int tokenise(token_t **head, char *str, char **env)
 {
 	char *rem_nl = strtok(str, "\n");
 	char *buff_commands = strtok(rem_nl, " ");
-	int group = 1, size = _strlen(str) + 1;
+	int group = 1;
 
 	while (buff_commands != NULL)
 	{

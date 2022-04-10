@@ -34,6 +34,7 @@ void exc_cmd(token_t **head, int group)
 	int status, argc = 0, i = 0;
 	token_t *hold = *head, *fill = *head;
 
+	printf("sys_calls.c\n");
 	while (hold->group < group)
 		hold = hold->next;
 
