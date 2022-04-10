@@ -58,12 +58,6 @@ int get_line(char **env)
 	ssize_t error = 0;
 	int flag = 0, group, grp_test = 1, l = 0;
 
-	if (isatty(STDIN_FILENO))
-	{
-		print_logo_welcome();
-		clear();
-	}
-
 	/*create liked list with the hist_func stuff*/
 	do {
 		grp_test = 1;
@@ -136,5 +130,11 @@ int main(int ac, char **av, char **env)
 	(void) av;
 
 	signal(SIGINT, signal_handler);
+	if (isatty(STDIN_FILENO))
+	{
+		print_logo_welcome();
+		clear();
+	}
+
 	return (get_line(env));
 }
