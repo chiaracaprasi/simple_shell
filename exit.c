@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <unistd.h>
 #include "main.h"
 /**
  * exit_built - exits the shell safely
@@ -10,7 +11,8 @@ void exit_built(token_t **head, int status, char *buffer)
 {
 	free(buffer);
 	buffer = NULL;
-	print_logo_goodbye();
+	if (isatty(STDIN_FILENO))
+		print_logo_goodbye();
 	free_tok(head);
 	exit(status);
 }
