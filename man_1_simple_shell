@@ -77,7 +77,7 @@ The following builtins are supported by hsh
 
 
 .SH RETURN VALUE
-Do we need this section?
+The C_SHELL returns the successful execution of a command to standard output, otherwise an error occurs.
 .B C_SHELL
 return the number...
 
