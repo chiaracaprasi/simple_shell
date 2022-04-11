@@ -5,7 +5,7 @@
 #include "main.h"
 
 /**
- * bIn_select - selects the builtin to use
+ * bIn_pick - picks the builtin to use
  * @av: list of arguments
  * @bN: the built number to execute
  * @h: list of tokens to execute.
@@ -13,10 +13,9 @@
  * @b: original buffer to free.
  * @ac: argument count.
  * Description: long description
-
  * Return: 0 upon success
  */
-void bIn_select(char *av[100], int ac, int bN, token_t **h, char **env, char *b)
+void bIn_pick(char *av[100], int ac, int bN, token_t **h, char **env, char *b)
 {
 	int funcNum;
 
@@ -79,8 +78,6 @@ void exc_built(token_t **head, int group, char **env, char *buffer)
 		use = use->next;
 	}
 	argv[i] = NULL;
-
 	builtNum = is_builtin(argv[0]);
-
 	bIn_select(argv, argc, builtNum, head, env, buffer);
 }
