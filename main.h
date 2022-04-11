@@ -63,6 +63,7 @@ void cd_built(char *dir, char **env);
 void env_built(char **env);
 char *_getenv(char *name, char **env);
 int env_start(char *path, char *var);
+void output_help(char *cmd);
 /* functions for testing */
 void print_list(const token_t *h);
 

@@ -38,6 +38,13 @@ void bIn_pick(char *av[100], int ac, int bN, token_t **h, char **env, char *b)
 	{
 		env_built(env);
 	}
+	if (bN == 3)
+	{
+		if (ac <= 2)
+			output_help(av[1]);
+		else
+			_puts("shell: help: too many arguments\n");
+	}
 }
 
 /**
@@ -80,4 +87,5 @@ void exc_built(token_t **head, int group, char **env, char *buffer)
 	argv[i] = NULL;
 	builtNum = is_builtin(argv[0]);
 	bIn_pick(argv, argc, builtNum, head, env, buffer);
+	
 }

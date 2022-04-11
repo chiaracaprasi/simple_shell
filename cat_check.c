@@ -18,6 +18,7 @@ int is_builtin(char *str_tok)
 		"exit",
 		"cd",
 		"env",
+		"help",
 		 "NULL"};
 	int i = 0;
 
