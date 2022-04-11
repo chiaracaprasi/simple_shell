@@ -1,1 +1,10 @@
-hello
+cd: cd
+    Change the shell working directory.
+
+    Change the current directory to DIR.  The default DIR is the value of the
+    HOME shell variable.
+
+    Exit Status:
+    Returns 0 if the directory is changed, and if $PWD is set successfully,
+    otherwise error occurs.
+
