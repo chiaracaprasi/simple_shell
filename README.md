@@ -1,7 +1,8 @@
 #  🌊🐚 C SHELL 
 #### By Chiara, Declan and Matthew
 
-   ![image](https://user-images.githubusercontent.com/91517809/162389298-d8dadda8-e83f-4641-8954-cd7e697a5275.png) 
+![image](https://user-images.githubusercontent.com/91517809/162679712-709fb667-2104-4ae7-ba2d-a6ebc898f9dc.png)
+
 
 ## 🦀 What is the C Shell? 
 
@@ -92,12 +93,11 @@ ls -l
 exit 
 ```
 
-
 ## 🤿 Operation Modes
 
 #### Interactive mode
 In the interactive mode, the C Shell will display -> prompting the user to type in and execute a command. After the command is run, the prompt -> will appear again in a new line waiting for a new command to be entered. As long as the user doesn't exit the shell (by typing exit and pressing enter), this will go indefinitely. 
-
+Example: 
 ```
 ./hsh
 -> /bin/ls
@@ -106,6 +106,7 @@ In the interactive mode, the C Shell will display -> prompting the user to type 
 #### Non-interactive mode
 
 In the non-interactive mode, the C Shell is run with a command pipped into into its execution - this way the command is run as soon as the shell starts. In this mode no prompt -> appears, and no further input is expected from the user.
+Example:
 
 ```
 echo "ls" | ./a.out 
