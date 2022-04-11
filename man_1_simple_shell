@@ -1,30 +1,88 @@
-.TH C_SHELL(3)
+.TH C_SHELL(3) "08 April 2022" "1.0" "C_SHELL MAN PAGE"
+
 .SH NAME
-.B C_SHELL
+
+C_SHELL
+
 .SH SYNOPSIS
-.B hsh [options] [filename]
+/hsh [options] [filename]
+
 .SH DESCRIPTION
-.B C_SHELL
-is a reproduction of the standard bash shell etc...
+
+
+The C_SHELL is the reproduction of the standard command interpreter for the system. This man page is not intended to be a complete explanation or tutorial of the shell.
+
+.SH OVERVIEW
+
+The shell is a command that reads lines from either a file or the terminal,
+ interprets them, and generally executes other commands. It is a program that will need to be executed before use. The shell implements a language that has flow control constructs, a macro facility that provides a variety of features including some to aid interactive use. Commands can be typed directlly into the the running shell, or can be put into a file which can be executed directly by the shell.
+
 .SH INVOCATION
 .B hsh
 here goes some text
-.SH SHELL GRAMMAR
+
+.SH FEATURES
 .TP
-.BR Simple commands
-A simple command...
+.B Interactive mode.
+.br
+After starting interactive mode using -./hsh, the user can input commands directly into the command line.
+
+The syntax for this is:
+
+<command> <flags or options> <argument 1> <argument 2>
+
+.B Non interactive mode.
+.br
+In non interactive mode, the user can input commands into C_SHELL by inputting into their own command line.
+
+The syntax for this is:
+
+<command> <flags or options> <argument 1> <argument 2> | ./hsh
 .TP
 .BR Pipelines
-A pipeline is a sequence of one or more commands separated by the character |. The format for a pipelin eis:
+A pipeline is a sequence of one or more commands seperated by a the control operator |. The output of last command is connected the the input of the piped command. The output of the last command is inherited by the shell. The standard output of the first command is connected (or piped) to the standard input of the seccond command.
+
+The format fot a pipeline is:
+
+[!] command1 [| command2 ...]
 
 .SH SHELL BUILTIN COMMANDS
-Placeholder 
+The following builtins are supported by hsh
+
+.B env
+.br
+- prints enironmental variables
+.br
+
+.B exit
+.br
+- exits the program
+.br
+
+.B cd
+.br
+- change directories
+.br
+
+.B setenv
+.br
+- sets environment variable
+.br
+
+.B unsetenv
+.br
+- unsets environment variable
+.br
+
+
+
 .SH RETURN VALUE
-Do we need this section?
+The C_SHELL returns the successful execution of a command to standard output, otherwise an error occurs.
 .B C_SHELL
 return the number...
+
 .SH AUTHORS
-Chiara Caprasi - chiaracaprasi@pm.com
+Chiara Caprasi
 .br
 Declan Noble
 .br
