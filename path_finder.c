@@ -47,9 +47,9 @@ char *path_checker(char *dir, char *cmd)
 }
 
 /**
- * get_path - finds the path
- * @path: path name
- * @nums: number
+ * get_path - breaks the path name into individual sections
+ * @search: the entire path name
+ * @nums: number of path names we have already searched
  *
  * Return: pointer
  **/

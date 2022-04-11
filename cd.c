@@ -4,14 +4,14 @@
 #include "main.h"
 
 /**
- * set_getenv - get enviroment var list for setenv function
+ * find_env_var - get enviroment var list for setenv function
  * @name: variable name
  * @env: array containing environment variables.
  *
  * Return: pointer to var in list
  */
 
-int set_getenv(char *name, char **env)
+int find_env_var(char *name, char **env)
 {
 	int i = 0;
 
@@ -26,15 +26,16 @@ int set_getenv(char *name, char **env)
 
 	return (i);
 }
+
 /**
- * _setenv - handles setting an env variable
+ * set_env_var - handles setting an env variable
  * @variable: variablename
  * @value: variable value
  * @env: enviromental variable
  *
  * return: void
  */
-void _setenv(char *variable, char *value, char **env)
+void set_env_var(char *variable, char *value, char **env)
 {
 	char *new_var;
 	int var_len, i = 0;
@@ -58,8 +59,46 @@ void _setenv(char *variable, char *value, char **env)
 	new_var = _strcat(new_var, "=");
 	new_var = _strcat(new_var, value);
 
-	i = set_getenv(variable, env);
+	i = find_env_var(variable, env);
 	env[i] = new_var;
+}
+
+/**
+ * set_pwd - sets the PWD variable
+ * @env: the list of env variables to edit
+ *
+ * return: void
+ */
+void set_pwd(char **env)
+{
+	 char pwd[100];
+
+	 getcwd(pwd, 100);
+	 set_env_var("PWD", pwd, env);
+	 _puts(pwd);
+	 _puts("\n");
+}
+
+/**
+ * handle_home - handles what to do if no input is passesd
+ * @env: the list of env variables to edit
+ *
+ * return: void
+ */
+void handle_home(char **env)
+{
+	char pwd[100];
+	int error;
+
+	getcwd(pwd, 100);
+	set_env_var("OLDPWD", pwd, env);
+	if (!_getenv("HOME", env))
+		error = chdir("/HOME/");
+	else
+		error = chdir(_getenv("HOME", env));
+	if (error == -1)
+		return;
+	set_pwd(env);
 }
 
 /**
@@ -74,46 +113,29 @@ void _setenv(char *variable, char *value, char **env)
 void cd_built(char *dir, char **env)
 {
 	char pwd[100];
-	char *curr_dir;
 	int error;
 
 	if (dir == NULL)
 	{
-		curr_dir = malloc(100);
-		if (curr_dir == NULL)
-			return;
-		if (!_getenv("HOME", env))
-			error = chdir("/home/");
-		else
-			error = chdir(_getenv("HOME", env));
-		if (error == -1)
-		{
-			return;
-		}
-		getcwd(pwd, 100);
-		_setenv("PWD", pwd, env);
-		_puts(pwd);
-		_puts("\n");
+		handle_home(env);
 		return;
 	}
 
 	if (dir[0] == '-')
 	{
-		curr_dir = malloc(100);
-		if (curr_dir == NULL)
-			return;
-		if (!_getenv("PWD", env))
-			error = chdir("/home/");
-		else
-			error = chdir(_getenv("PWD", env));
-		if (error == -1)
+		getcwd(pwd, 100);
+		if (!_getenv("OLDPWD", env))
 		{
+			_puts("error, OLDPWD not set\n");
 			return;
 		}
-		getcwd(pwd, 100);
-		_setenv("PWD", pwd, env);
-		_puts(pwd);
-		_puts("\n");
+		else
+			error = chdir(_getenv("OLDPWD", env));
+		if (error == -1)
+			return;
+		set_env_var("OLDPWD", pwd, env);
+		set_pwd(env);
+
 		return;
 	}
 
@@ -125,8 +147,5 @@ void cd_built(char *dir, char **env)
 		return;
 	}
 
-	getcwd(pwd, 100);
-	_setenv("PWD", pwd, env);
-	_puts(pwd);
-	_puts("\n");
+	set_pwd(env);
 }

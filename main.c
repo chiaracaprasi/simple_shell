@@ -9,6 +9,8 @@
  * group_sort - handles the number of groups
  * @grp_test: the group we are handling now
  * @head: list of tokens
+ * @env: list of enviromental variables
+ * @buffer: the original buffer string, passed so it can be freed.
  * Return: always 0.
  */
 int group_sort(int grp_test, token_t **head, char **env, char *buffer)
