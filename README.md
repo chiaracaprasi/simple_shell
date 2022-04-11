@@ -3,7 +3,7 @@
 
    ![image](https://user-images.githubusercontent.com/91517809/162389298-d8dadda8-e83f-4641-8954-cd7e697a5275.png) 
 
-## 🤿 What is the C Shell? 
+## 🦀 What is the C Shell? 
 
 C Shell is a simple reproduction of the original UNIX shell in C. Similar to the orginal shell, it's a program that takes commands by the user via the keyboard and gives them to the OS (operating system) to perform. 
 To learn more about how the shell works, you can read our blog at [here 🔗](https://medium.com/@chiaracaprasi/how-the-shell-works)
@@ -93,7 +93,7 @@ exit
 ```
 
 
-## 🦀 Operation Modes
+## 🤿 Operation Modes
 
 #### Interactive mode
 In the interactive mode, the C Shell will display -> prompting the user to type in and execute a command. After the command is run, the prompt -> will appear again in a new line waiting for a new command to be entered. As long as the user doesn't exit the shell (by typing exit and pressing enter), this will go indefinitely. 
@@ -111,7 +111,7 @@ In the non-interactive mode, the C Shell is run with a command pipped into into 
 enter example
 ```
 
-## 🪸 Built ins
+## 🐙 Built ins
  
 The following build ins were implemented: 
 
