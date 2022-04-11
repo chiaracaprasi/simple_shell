@@ -12,8 +12,6 @@ void exit_built(token_t **head, int status, char *buffer)
 {
 	free(buffer);
 	buffer = NULL;
-	if (isatty(STDIN_FILENO))
-		print_logo_goodbye();
 	free_tok(head);
 	exit(status);
 }

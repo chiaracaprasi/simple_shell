@@ -40,6 +40,7 @@ char *path_checker(char *dir, char *cmd)
 	if (file_found == -1)
 	{
 		free(path_con);
+		path_con = NULL;
 		return (dir);
 	}
 

@@ -13,9 +13,9 @@
  * @buffer: the original buffer string, passed so it can be freed.
  * Return: always 0.
  */
-int group_sort(int grp_test, token_t **head, char **env, char *buffer)
+int group_sort(int grp_test, token_t **h, char **env, char *buffer, char **av)
 {
-	token_t *use = *head;
+	token_t *use = *h;
 
 	if (use != NULL)
 	{
@@ -30,18 +30,18 @@ int group_sort(int grp_test, token_t **head, char **env, char *buffer)
 
 	if (use->cat == 0)
 	{
-		print_error_unknown(head, grp_test);
+		perror(av[0]);
 		return (grp_test + 1);
 	}
 	if (use->cat == 1)
 	{
-		exc_cmd(head, grp_test);
+		exc_cmd(h, grp_test);
 		return (grp_test + 1);
 	}
 
-	if ((*head)->cat == 2)
+	if (use->cat == 2)
 	{
-		exc_built(head, grp_test, env, buffer);
+		exc_built(h, grp_test, env, buffer);
 		return (grp_test + 1);
 	}
 	return (grp_test +  1);
@@ -52,7 +52,7 @@ int group_sort(int grp_test, token_t **head, char **env, char *buffer)
  * @env: list of enviroment properties
  * Return: always 0.
  */
-int get_line(char **env)
+int get_line(char **av, char **env)
 {
 	token_t *head = NULL;
 	char *buffer = NULL;
@@ -60,7 +60,6 @@ int get_line(char **env)
 	ssize_t error = 0;
 	int flag = 0, group, grp_test = 1, l = 0;
 
-	/*create liked list with the hist_func stuff*/
 	do {
 		grp_test = 1;
 		if (isatty(STDIN_FILENO))
@@ -78,14 +77,13 @@ int get_line(char **env)
 		group = tokenise(&head, buffer, env);
 		while (grp_test <= group)
 		{
-			grp_test = group_sort(grp_test, &head, env, buffer);
+			grp_test = group_sort(grp_test, &head, env, buffer, av);
 		}
 		free(buffer);
 		buffer = NULL;
 		free_tok(&head);
 		l++;
 	} while (flag != -1);
-	print_logo_goodbye();
 	return (0);
 }
 
@@ -117,7 +115,7 @@ int is_end_of_shell(char *buffer, int error)
  */
 void print_prompt(void)
 {
-	write(STDOUT_FILENO," ♪┏(・o･)┛♪┗ ( ･o･) ┓-->", 43);
+	write(STDOUT_FILENO, ":)", 3);
 }
 /**
  * main - voids ac.
@@ -129,14 +127,7 @@ void print_prompt(void)
 int main(int ac, char **av, char **env)
 {
 	(void) ac;
-	(void) av;
 
 	signal(SIGINT, signal_handler);
-/*	if (isatty(STDIN_FILENO))
-	{
-		clear();
-		print_logo_welcome();
-	}
-*/
-	return (get_line(env));
+	return (get_line(av, env));
 }

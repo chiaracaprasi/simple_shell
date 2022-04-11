@@ -26,14 +26,13 @@ typedef struct s_tokens
 /*Main functions*/
 int is_builtin(char *str_tok);
 int is_alias(char *str_tok);
-int group_sort(int grp_test, token_t **head, char **env, char *buffer);
-int get_line(char **env);
+int group_sort(int grp_test, token_t **h, char **env, char *buffer, char **av);
+int get_line(char **av, char **env);
 int is_end_of_shell(char *buffer, int error);
 void signal_handler(int signal);
 /* print functions */
 void print_logo_welcome(void);
 void print_logo_goodbye(void);
-void print_error_unknown(token_t **head, int group);
 void print_prompt(void);
 /* tokeniser functions */
 token_t *add_token(token_t **head, int group, char *str_tok, char **env);
