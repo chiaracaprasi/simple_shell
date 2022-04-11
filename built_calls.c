@@ -5,14 +5,15 @@
 #include "main.h"
 
 /**
- * builtin_select - selects the builtin to use
- * @argv: list of arguments
+ * bIn_select - selects the builtin to use
+ * @av: list of arguments
  * @bN: the built number to execute
  * @h: list of tokens to execute.
  * @env: enviroment variables
  * @b: original buffer to free.
+ * @ac: argument count.
  * Description: long description
- *
+
  * Return: 0 upon success
  */
 void bIn_select(char *av[100], int ac, int bN, token_t **h, char **env, char *b)
