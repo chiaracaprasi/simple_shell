@@ -79,5 +79,5 @@ void exc_built(token_t **head, int group, char **env, char *buffer)
 	}
 	argv[i] = NULL;
 	builtNum = is_builtin(argv[0]);
-	bIn_select(argv, argc, builtNum, head, env, buffer);
+	bIn_pick(argv, argc, builtNum, head, env, buffer);
 }
