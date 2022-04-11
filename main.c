@@ -132,11 +132,11 @@ int main(int ac, char **av, char **env)
 	(void) av;
 
 	signal(SIGINT, signal_handler);
-	if (isatty(STDIN_FILENO))
+/*	if (isatty(STDIN_FILENO))
 	{
 		clear();
 		print_logo_welcome();
 	}
-
+*/
 	return (get_line(env));
 }
