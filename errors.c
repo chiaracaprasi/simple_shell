@@ -16,7 +16,7 @@ void print_error_unknown(token_t **head, int group)
 		hold = hold->next;
 	}
 
-	_puts("Error - unknown command: ");
+	_puts("1: ");
 	_puts(hold->token);
-	_puts("\n");
+	_puts(": not found\n");
 }
