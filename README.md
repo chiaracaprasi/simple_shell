@@ -108,7 +108,7 @@ In the interactive mode, the C Shell will display -> prompting the user to type 
 In the non-interactive mode, the C Shell is run with a command pipped into into its execution - this way the command is run as soon as the shell starts. In this mode no prompt -> appears, and no further input is expected from the user.
 
 ```
-enter example
+echo "ls" | ./a.out 
 ```
 
 ## 🐙 Built ins
