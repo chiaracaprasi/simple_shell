@@ -5,7 +5,7 @@
 
 ## 🤿 What is the C Shell? 
 
-C Shell is a simple reproduction of the original UNIX shell in C. Same as the orginal shell, it's a program that takes commands by the user via the keyboard and gives them to the OS (operating system) to perform. 
+C Shell is a simple reproduction of the original UNIX shell in C. Similar to the orginal shell, it's a program that takes commands by the user via the keyboard and gives them to the OS (operating system) to perform. 
 To learn more about how the shell works, you can read our blog at [here 🔗](https://medium.com/@chiaracaprasi/how-the-shell-works)
 
 This project has been created using **C Programming Language** and is part of Holberton School Australia curriculum. 
@@ -14,6 +14,7 @@ This project has been created using **C Programming Language** and is part of Ho
 ## 🧜🏻 Project Requirements 
 
 ### List of allowed functions and system calls
+````
 - access (man 2 access)
 - chdir (man 2 chdir)
 - close (man 2 close)
@@ -45,6 +46,7 @@ This project has been created using **C Programming Language** and is part of Ho
 - wait3 (man 2 wait3)
 - wait4 (man 2 wait4)
 - write (man 2 write)
+````
 
 ### Coding Style
 
@@ -90,12 +92,48 @@ ls -l
 exit 
 ```
 
-## 🦀 Example of usage  
-Full Path name E.G:   
--> /bin/ls    
+
+## 🦀 Operation Modes
+
+#### Interactive mode
+In the interactive mode, the C Shell will display -> prompting the user to type in and execute a command. After the command is run, the prompt -> will appear again in a new line waiting for a new command to be entered. As long as the user doesn't exit the shell (by typing exit and pressing enter), this will go indefinitely. 
+
+```
+./hsh
+-> /bin/ls
+```
+
+#### Non-interactive mode
+
+In the non-interactive mode, the C Shell is run with a command pipped into into its execution - this way the command is run as soon as the shell starts. In this mode no prompt -> appears, and no further input is expected from the user.
+
+```
+enter example
+```
+
+## 🪸 Built ins
+ 
+The following build ins were implemented: 
+
+- ```exit``` - exit the shell 
+- ```env``` - print the current environment
+- ```cd``` - change the current directory of the process.
+- ```help``` - display help page for the above builtins 
+
+## 🦦 Functions (or file name??)
+
+|  Function Name |         Description         |
+|----------------|----------------------------------------------|
+|`prompt??`|Function that prints a prompt, waits for a commnad and reads it form the stream.|                 |
+|`_strlen`|Funtion that takes a string and returns its length.|
+|`_strcmp`|Funtion that takes two strings compares them and returns the number of different characters.|
+|`_strncat`|Function that concatenates two strings and returns a pointer to the concatenated string. 
+|`exit`|Shell Built-function that exits the program and returns an status.|
+
+
 
 ## 🪲 Known bugs
-### seperator bug
+### Seperator bug
 the ';' seperator will only work if there is a space either side of it   
 - (ls ; rm *.c) will work      
 - (ls;rm *.c) will not work.     
@@ -106,10 +144,11 @@ the ';' seperator will only work if there is a space either side of it
 - Declan Noble
 - Matthew Brinkmann 
 
+
 ## 🧹🧺 Housekeeping
 
 
-### REPO STANDARDS
+### Repo Standards
 **Commit Messages:**   
 **usage:** type: subject line in lower case.   
 **example:** docs: update readme file   
@@ -128,7 +167,7 @@ the ';' seperator will only work if there is a space either side of it
 **Usage:**   shell_<tasknumber>   
 **Example:** shell_0.1   
 
-### files/folder information 
+### Files/Folder Organization 
 - .gitignore containing: 
 -- *~ (all emacs buffer files)
 -- local_* (all local testing files)
