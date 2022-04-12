@@ -91,7 +91,6 @@ char *path_checker(char *cmd, char **dir)
 	int is_file = 0;
 
 	fname_len = _strlen(cmd);
-
 	while (dir[i])
 	{
 		cur_path_len = _strlen(dir[i]);
@@ -99,7 +98,6 @@ char *path_checker(char *cmd, char **dir)
 		new_path = malloc(sizeof(char) * new_path_len + 1);
 		if (new_path == NULL)
 			return (NULL);
-
 		new_path_i = path_i = cmd_i = 0;
 		while (new_path_i < new_path_len)
 		{
@@ -112,7 +110,6 @@ char *path_checker(char *cmd, char **dir)
 			new_path_i++;
 		}
 		new_path[new_path_i] = '\0';
-
 		is_file = test_path(new_path);
 		if (is_file == 1)
 			return (new_path);

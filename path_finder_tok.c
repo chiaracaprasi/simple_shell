@@ -98,14 +98,12 @@ char **path_seperator(char *str, char *delims)
 	if (str == NULL || !*str)
 		return (NULL);
 	wordCount = get_word_count(str, delims);
-
-
 	if (wordCount == 0)
 		return (NULL);
 	words = malloc((wordCount + 1) * sizeof(char *));
 	if (words == NULL)
 		return (NULL);
-	while (i < wordCount)
+	for (; i < wordCount; i++)
 	{
 		wordLen = get_word_length(str, delims);
 		if (*str == delims[0])
@@ -131,7 +129,6 @@ char **path_seperator(char *str, char *delims)
 		}
 		words[i][n] = '\0';
 		str = get_next_word(str, delims);
-		i++;
 	}
 	words[i] = NULL;
 	return (words);
