@@ -41,7 +41,9 @@ int set_tok_cat(char *tok);
 int set_tok_grp(token_t *head, int group);
 int tokenise(token_t **head, char *str, char **env);
 /* system exc functions */
-char *path_checker(char *dir, char *cmd);
+char *get_path(char *search, char **env);
+char **path_seperator(char *str, char *delims);
+char *path_checker(char *cmd, char **dir);
 char *path_finder(char *cmd, char **env);
 void exc_cmd_test(char * const cmd_array[]);
 void exc_cmd(token_t **head, int group);

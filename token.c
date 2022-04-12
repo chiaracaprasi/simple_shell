@@ -18,7 +18,7 @@
  */
 token_t *add_token(token_t **head, int group, char *str_tok, char **env)
 {
-	char *strCpy;
+	char *strCpy = NULL;
 	token_t *new = NULL;
 	token_t *hold = NULL;
 	int file_found;
@@ -34,7 +34,7 @@ token_t *add_token(token_t **head, int group, char *str_tok, char **env)
 	new->cat = set_tok_cat(str_tok);
 	if (new->cat == 0)
 	{
-		strCpy = path_finder(strCpy, env);
+		strCpy = get_path(strCpy, env);
 		file_found = access(strCpy, X_OK);
 		if (file_found >= 0)
 			new->cat = 1;
