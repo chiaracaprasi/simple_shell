@@ -8,7 +8,8 @@
 /**
  * group_sort - handles the number of groups
  * @grp_test: the group we are handling now
- * @head: list of tokens
+ * @h: list of tokens
+ * @av: pointer to args
  * @env: list of enviromental variables
  * @buffer: the original buffer string, passed so it can be freed.
  * Return: always 0.
@@ -50,6 +51,7 @@ int group_sort(int grp_test, token_t **h, char **env, char *buffer, char **av)
 /**
  * get_line - gets line and waits for input.
  * @env: list of enviroment properties
+ * @av: pointer to args
  * Return: always 0.
  */
 int get_line(char **av, char **env)
