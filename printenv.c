@@ -7,7 +7,7 @@
  *
  * return: void
  */
-void env_built(char **env)
+int env_built(char **env)
 {
 	int i = 0;
 
@@ -17,4 +17,6 @@ void env_built(char **env)
 		write(1, "\n", 1);
 		i++;
 	}
+
+	return (0);
 }

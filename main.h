@@ -61,7 +61,7 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 void exc_built(token_t **head, int group, char **env, char *buffer);
 void exit_built(token_t **head, int status, char *buffer);
 void cd_built(char *dir, char **env);
-void env_built(char **env);
+int env_built(char **env);
 char *_getenv(char *name, char **env);
 int env_start(char *path, char *var);
 void output_help(char *cmd);
