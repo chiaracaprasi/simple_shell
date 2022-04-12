@@ -1,154 +1,130 @@
-#include <stdio.h>
-#include <unistd.h>
 #include <stdlib.h>
-#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <fcntl.h>
 #include "main.h"
 
 /**
- * path_checker - checks in the string starts with /bin/
- * @dir: the dir to check
- * @cmd: the cmd file to try to find
- * Description: locates if command entered exists in the path directory
+ * test_path - tests if the path to a file exists or not
+ * @full_path: path to the file
  *
- * Return: pointer to file if exists or NULL if no file exists.
+ * Return: 1- can open and close file. 0 - can't find file
+ * -1 - opened filebut can't close it.
  */
-char *path_checker(char *dir, char *cmd)
+int test_path(char *full_path)
 {
-	char *path_con = NULL;
-	int newsize = (_strlen(dir) + _strlen(cmd) + 2), file_found = 0;
+	int error = 0;
+
+	error = open(full_path, O_RDONLY);
+	if (error < 0)
+		return (0);
+	if (close(error) < 0)
+		return (-1);
+	return (1);
+}
+
+/**
+ * free_path - frees the list of path dirs
+ * @path: the list of path dirs to free
+ *
+ * Return: always void.
+ */
+
+void free_path(char **path)
+{
 	int i = 0;
 
-	path_con = malloc(newsize * sizeof(char));
-	if (path_con == NULL)
-		return (NULL);
-
-	while (dir[i] != '\0')
+	if (path == NULL)
+		return;
+	while (path[i] != NULL)
 	{
-		if (dir[i] == ':')
-		{
-			dir[i] = '\0';
-			break;
-		}
+		free(path[i]);
 		i++;
 	}
-
-	path_con = _strcat(path_con, dir);
-	path_con = _strcat(path_con, "/");
-	path_con = _strcat(path_con, cmd);
-
-	file_found = access(path_con, X_OK);
-	if (file_found == -1)
-	{
-		free(path_con);
-		path_con = NULL;
-		return (dir);
-	}
-
-	return (path_con);
+	free(path);
 }
 
 /**
- * get_path - breaks the path name into individual sections
- * @search: the entire path name
- * @nums: number of path names we have already searched
+ * get_path - breaks the path name into individual sections and tests
+ * @search: the file name to search through the path for
+ * @env: the list of enviro varaibles
  *
  * Return: pointer
- **/
-
-char *get_path(char *search, int nums)
-{
-	int i = 0, k = 0, l = 0;
-
-	if (k <= nums)
-	{
-		while (search[i] != '\0' || k != nums)
-		{
-			if (search[i] == ':' || search[i] == '\0')
-			{
-				if (k == nums)
-				{
-					search[i] = '\0';
-					break;
-				}
-				l = i + 1;
-				k++;
-			}
-			i++;
-		}
-	}
-
-	i++;
-	return (search + l);
-}
-/**
- * find_real_path - finds the correct path value
- * @dir: the dir to check
- * @cmd: the cmd file to try to find
- * Description: locates if command entered exists in the path directory
- *
- * Return: pointer to file if exists or NULL if no file exists.
  */
-char *find_real_path(char *dir, char *cmd)
+char *get_path(char *search, char **env)
 {
-	char *path_list_cpy = _strdup(dir);
-	char *address_of_list = path_list_cpy;
-	int i = 0, k = 0, size1, size2;
+	char **paths = NULL;
+	char *fullPathList = NULL;
+	char *retVal = NULL;
 
-	while (k < 25)
+	if (search == NULL || env == NULL)
+		return (NULL);
+
+	fullPathList = _getenv("PATH", env);
+
+	paths = path_seperator(fullPathList, ":");
+
+	if (paths == NULL)
 	{
-		path_list_cpy = get_path(path_list_cpy, k);
-		if (path_list_cpy[0] == '\0')
-			break;
-		k++;
-		size1 = _strlen(path_list_cpy);
-		path_list_cpy = path_checker(path_list_cpy, cmd);
-		size2 = _strlen(path_list_cpy);
-		if (size1 != size2)
-			break;
+		if (test_path(search))
+			return (search);
+		return (NULL);
+	}
+	retVal = path_checker(search, paths);
+	free_path(paths);
+	return (retVal);
+}
+
+/**
+ * path_checker - gets the correct path from a list of tokenized dirs
+ * @dir: dir to check
+ * @cmd: the cmd to try to find
+ *
+ * Return: pointer to file if exists or NULL if no file exists
+ */
+char *path_checker(char *cmd, char **dir)
+{
+	char *new_path = NULL;
+	int fname_len = 0, cur_path_len = 0, new_path_len = 0;
+	int i = 0, new_path_i = 0, cmd_i = 0, path_i = 0;
+	int is_file = 0;
+
+	fname_len = _strlen(cmd);
+
+	while (dir[i])
+	{
+		cur_path_len = _strlen(dir[i]);
+		new_path_len = cur_path_len + fname_len + 1;
+		new_path = malloc(sizeof(char) * new_path_len + 1);
+		if (new_path == NULL)
+			return (NULL);
+
+		new_path_i = path_i = cmd_i = 0;
+		while (new_path_i < new_path_len)
+		{
+			if (new_path_i < cur_path_len)
+				new_path[new_path_i] = dir[i][path_i++];
+			else if (new_path_i == cur_path_len)
+				new_path[new_path_i] = '/';
+			else
+				new_path[new_path_i] = cmd[cmd_i++];
+			new_path_i++;
+		}
+		new_path[new_path_i] = '\0';
+
+		is_file = test_path(new_path);
+		if (is_file == 1)
+			return (new_path);
+		else if (is_file < 0)
+		{
+			free(new_path);
+			return (NULL);
+		}
+		free(new_path);
 		i++;
 	}
-
-	if (path_list_cpy[0] != '\0')
-	{
-		return (path_list_cpy);
-	}
-
-	free(address_of_list);
+	if (test_path(cmd))
+		return (cmd);
 	return (cmd);
-}
-/**
- * path_finder - handles the PATH
- * @cmd: command entered
- * @env: envoriomental variables
- * Description: locates if command entered exists in the bin directory
- *
- * Return: 0 for success, -1 for not found
- */
-char *path_finder(char *cmd, char **env)
-{
-	char *dir = NULL;
-	char *path = NULL;
-	int flag = 0;
-
-	if (cmd[0] == '/')
-	{
-		return (cmd);
-	}
-	dir =  _getenv("PATH", env);
-	if (dir == NULL)
-	{
-		dir = _strdup("/bin/");
-		flag = 1;
-	}
-	path = find_real_path(dir, cmd);
-	if (path[0] != '/')
-	{
-		if (flag == 1)
-		{
-			free(dir);
-			dir = NULL;
-		}
-		return (cmd);
-	} else
-		return (path);
 }

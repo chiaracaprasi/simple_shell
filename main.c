@@ -74,6 +74,7 @@ int get_line(char **av, char **env)
 		}
 
 		fflush(stdin);
+
 		group = tokenise(&head, buffer, env);
 		while (grp_test <= group)
 		{
@@ -109,6 +110,7 @@ int is_end_of_shell(char *buffer, int error)
 	}
 	return (1);
 }
+
 /**
  * print_prompt - prints prompt
  * Return: nothing.
