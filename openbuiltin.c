@@ -12,16 +12,16 @@ void output_help(char *cmd)
 {
 	char *cdhelp =
 #include "cd.help"
-    ;
+		;
 	char *envhelp =
 #include "env.help"
-    ;
+		;
 	char *helphelp =
 #include "help.help"
-    ;
+		;
 	char *exithelp =
 #include "exit.help"
-    ;
+		;
 
 	if (_strcmp(cmd, "cd") == 0)
 		_puts(cdhelp);
