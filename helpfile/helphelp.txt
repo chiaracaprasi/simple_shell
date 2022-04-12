@@ -1,9 +1,0 @@
-help: help
-      Display information about builtin commands.
-
-      Displays a brief summary of the builtin commands.
-      If builtin is specified, gives details on the specified
-      builtin.
-
-      Exit Status:
-      Returns success unless invalid option is given.
