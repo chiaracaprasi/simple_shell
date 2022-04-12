@@ -121,23 +121,36 @@ The following build ins were implemented:
 - ```cd``` - change the current directory of the process.
 - ```help``` - display help page for the above builtins 
 
-## 🦦 Functions (or file name??)
+## 🦦 Files and Descriptions
 
-|  Function Name |         Description         |
+|  File Name |         Description         |
 |----------------|----------------------------------------------|
-|`prompt??`|Function that prints a prompt, waits for a commnad and reads it form the stream.|                 |
-|`_strlen`|Funtion that takes a string and returns its length.|
-|`_strcmp`|Funtion that takes two strings compares them and returns the number of different characters.|
-|`_strncat`|Function that concatenates two strings and returns a pointer to the concatenated string. 
-|`exit`|Shell Built-function that exits the program and returns an status.|
+| `build_calls.c` | handle the execution of built in functions
+| `cat_check.c` | list of builds and aliases (alias function not working yet) |
+| `cd.c` | handles cd built in |
+| `exit.c` | handles exit built in |
+| `getenv.c` | handle the env built in by retreving the enviromental variables| 
+| `lib_func_a.c, lib_func_b.c` | library functions such as _strlen, _strdup | 
+|`main.c`| responsible for allowing user input and free and resttimng ourt buffer |
+| `help.c | handle the help build in | 
+|`path_finder.c`|handles the path suing a two-dimensional arrays (an arrays of pointers)|
+|`path_finder_tok.c`| creates path_finder array for path_finder.c 
+| `print_env.c` | prints the env variables |
+| `signal_handler.c` | handles the CRTL
+|`sys_calls.c` | handles the execution of system calls 
+|`token.c` | responsible for tokenising of the buffer|
+|`*.help`| any files that ends in .help is used with the help function
 
 
 
-## 🪲 Known bugs
-### Seperator bug
-the ';' seperator will only work if there is a space either side of it   
+## 🪲 Known bugs/limitations
+
+#### Seperator bug
+The ';' seperator will only work if there is a space either side of it   
 - (ls ; rm *.c) will work      
 - (ls;rm *.c) will not work.     
+
+#### Alias function not working yet 
 
 ## ✍🏽 Authors
 
@@ -168,12 +181,12 @@ the ';' seperator will only work if there is a space either side of it
 **Usage:**   shell_<tasknumber>   
 **Example:** shell_0.1   
 
-### Files/Folder Organization 
+### Directory Organization 
 - .gitignore containing: 
 -- *~ (all emacs buffer files)
 -- local_* (all local testing files)
 - Day_1 Folder - contains all tasks done in day 1, and is kept to be used as a reference for all future work.
-- playground - for testing and experimenting during the planning phase of the project. Kept long term as a refresher if needed.
+- Tes_enviroment - for testing and experimenting during the planning phase of the project. Kept long term as a refresher if needed.
    
 ![image](https://user-images.githubusercontent.com/91517809/162389572-c197bc8a-315a-4c22-8c3b-aac698625e25.png)
 
