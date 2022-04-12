@@ -1,8 +1,7 @@
 #  🌊🐚 C SHELL 
-#### By Chiara, Declan and Matthew
+#### By Chiara, Declan and Matthew!
 
-![image](https://user-images.githubusercontent.com/91517809/162679712-709fb667-2104-4ae7-ba2d-a6ebc898f9dc.png)
-
+<img width="451" alt="Screen Shot 2022-04-11 at 5 08 54 pm" src="https://user-images.githubusercontent.com/91517809/162905635-7dcf1635-5de2-4dd0-b5ba-909dac2b67c3.png">
 
 ## 🦀 What is the C Shell? 
 
@@ -125,19 +124,19 @@ The following build ins were implemented:
 
 |  File Name |         Description         |
 |----------------|----------------------------------------------|
-| `build_calls.c` | handle the execution of built in functions
+| `built_calls.c` | handles the execution of built in functions
 | `cat_check.c` | list of builds and aliases (alias function not working yet) |
 | `cd.c` | handles cd built in |
 | `exit.c` | handles exit built in |
-| `getenv.c` | handle the env built in by retreving the enviromental variables| 
+| `getenv.c` | handles the env built in by retreving the enviromental variables| 
 | `lib_func_a.c, lib_func_b.c` | library functions such as _strlen, _strdup | 
 |`main.c`| responsible for allowing user input and free and resttimng ourt buffer |
-| `help.c | handle the help build in | 
+| `help.c` | handlesthe help build in | 
 |`path_finder.c`|handles the path suing a two-dimensional arrays (an arrays of pointers)|
 |`path_finder_tok.c`| creates path_finder array for path_finder.c 
 | `print_env.c` | prints the env variables |
-| `signal_handler.c` | handles the CRTL
-|`sys_calls.c` | handles the execution of system calls 
+| `signal_handler.c` | handles the Ctrl+C |
+|`sys_calls.c` | handles the execution of system calls |
 |`token.c` | responsible for tokenising of the buffer|
 |`*.help`| any files that ends in .help is used with the help function
 
